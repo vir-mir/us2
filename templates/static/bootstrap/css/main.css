@@ -1,0 +1,43 @@
+
+body {
+    color: #424242;
+    font-size: 14px;
+    font-family: "Arial, san-serif";
+}
+
+
+h1, h1 * {
+    font-size: 26px;
+    color: #000;
+}
+h2, h2 * {
+    font-size: 22px;
+    color: #000;
+}
+
+h3, h3 * {
+    font-size: 19px;
+    color: #000;
+}
+
+h4, h4 * {
+    font-size: 16px;
+    color: #000;
+}
+
+h5, h5 * {
+    font-size: 14px;
+    color: #000;
+}
+
+h6, h6 * {
+    font-size: 14px;
+    color: #dd384e;
+    font-weight: normal;
+}
+
+
+.center,
+.center * {
+    text-align: center;
+}
