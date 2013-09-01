@@ -1,3 +1,5 @@
+function isset(a){return(a===null||a===''||a===false||a===undefined)?false:true}function to_int(a){if(!isNaN(Number(a)))return Number(a);else return 0}function to_str(a){return String(a)}function explode(a,b){return b.split(a)}function implode(a,b){var c="";for(var i=0;i<b.length;++i){c+=b[i]+a}return trim(c,a)}function trimLeft(a,b){if(!isset(b))b="^[ ]+";else b="^["+b+"]+";var c=new RegExp(b,"i");return a.replace(c,'')}function trimRight(a,b){if(!isset(b))b="[ ]+$";else b="["+b+"]+$";var c=new RegExp(b,"i");return a.replace(c,'')}function trim(a,b){return trimLeft(trimRight(a,b),b)}function p(){for(var i=0;i<arguments.length;i++){alert("arguments["+i+"] = "+arguments[i])}}function t(){for(var i=0;i<arguments.length;i++){alert("arguments["+i+"] = "+arguments[i].toSource())}}
+
 /**
  *
  * @param data
@@ -86,6 +88,21 @@ $(function () {
 
 
     $("a[href$='.jpg'], a[href$='.png'], a[href$='.gif'], a[href$='.jpeg'], .lightbox").lightBox();
+
+    if (isset(errors)) {
+        for (var i=0; i<errors.length; i++) {
+            $('.top-right').notify({
+                message: { text: errors[i] }, type: 'error'
+            }).show();
+        }
+    }
+    if (isset(success)) {
+        for (var i=0; i<errors.length; i++) {
+            $('.top-right').notify({
+                message: { text: errors[i] }, type: 'success'
+            }).show();
+        }
+    }
 
 
 

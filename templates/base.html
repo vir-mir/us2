@@ -23,6 +23,8 @@
 </head>
 <body>
 
+<div class='notifications top-right'></div>
+
 {% block content_html %}
 
     {% block content %}
@@ -31,6 +33,16 @@
 
 {% endblock %}
 
+<script type="text/javascript">
+    var errors = null
+    {% if errors %}
+        errors = ['{{ errors|join:"','" }}'];
+    {% endif %}
+    var success = null
+    {% if success %}
+        success = ['{{ success|join:"','" }}'];
+    {% endif %}
+</script>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script src="/static/bootstrap/js/bootstrap.min.js"></script>
