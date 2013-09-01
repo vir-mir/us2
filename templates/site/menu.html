@@ -1,0 +1,21 @@
+<ul class="nav">
+    {% if menu_list %}
+        {% for menu in menu_list %}
+            <li{% if request.path == menu.url %} class="active"{% endif %}>
+                <a href="{{ menu.url }}"{% if menu.parent %} class="dropdown-toggle" data-toggle="dropdown"{% endif %}>
+                    {{ menu.name }}
+                    {% if menu.parent %}<i class="caret"></i>{% endif %}
+                </a>
+                {% if menu.parent %}
+                    <ul class="dropdown-menu">
+                        {% for parent in menu.parent %}
+                            <li{% if request.path == parent.url %} class="active"{% endif %}>
+                                <a href="{{ parent.url }}">{{ parent.name }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </li>
+        {% endfor %}
+    {% endif %}
+</ul>
