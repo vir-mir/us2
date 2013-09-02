@@ -1,2 +1,2 @@
-.idea
-settings_local.py
+.idea/*
+us/settings_local.py
