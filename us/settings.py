@@ -141,10 +141,12 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     #'django.contrib.admindocs',
     'south',
+    'mptt',
     'debug_toolbar',
     'apps.simplepagination',
     'apps.jevix',
     'apps.site',
+    'apps.menu',
 )
 
 DEBUG_TOOLBAR_PANELS = (
