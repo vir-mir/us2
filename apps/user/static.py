@@ -1,13 +1,16 @@
 #coding: utf-8
 
-from django.shortcuts import redirect
-from apps.user.views import login
+
+from apps.user.views import *
+from apps.user.maneger import ManegerUser
+
+user_obj = ManegerUser()
 
 
 def is_authenticated(f):
     def red_log(request, *args, **kwargs):
         if not request.user.is_authenticated():
-            return login(request, *args, **kwargs)
+            return fn_login(request, *args, **kwargs)
         else:
             return f(request, *args, **kwargs)
 

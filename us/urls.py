@@ -13,7 +13,8 @@ urlpatterns = patterns('',
     # index:
     url(r'^$', 'apps.site.views.index', name='index'),
 
-    url(r'^login/$', 'apps.user.views.login', name='login'),
+    url(r'^login/$', 'apps.user.views.fn_login', name='login'),
+    url(r'^admin/user/$', 'apps.user.views.admin_user', name='admin_user'),
 
     # Uncomment the next line to enable the admin:
     #url(r'^admin/', include(admin.site.urls)),

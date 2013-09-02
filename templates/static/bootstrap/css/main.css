@@ -42,3 +42,11 @@ h6, h6 * {
 .center * {
     text-align: center;
 }
+
+ul.list, ol.list {
+    margin: 0;
+}
+
+ul.list li, ol.list li {
+    list-style: none;
+}
