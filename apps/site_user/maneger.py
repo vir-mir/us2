@@ -1,7 +1,8 @@
 #coding: utf-8
 import datetime
 
-from apps.user.models import Duties
+from apps.site_user.models import Duties
+
 
 class ManegerUser():
 

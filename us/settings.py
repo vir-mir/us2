@@ -146,7 +146,7 @@ INSTALLED_APPS = (
     'apps.simplepagination',
     'apps.jevix',
     'apps.site',
-    'apps.user',
+    'apps.site_user',
     'apps.menu',
 )
 

@@ -9,9 +9,9 @@ class Migration(SchemaMigration):
 
     def forwards(self, orm):
         # Adding model 'Duties'
-        db.create_table(u'user_duties', (
+        db.create_table(u'site_user_duties', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('parent', self.gf('mptt.fields.TreeForeignKey')(to=orm['user.Duties'], null=True, blank=True)),
+            ('parent', self.gf('mptt.fields.TreeForeignKey')(to=orm['site_user.Duties'], null=True, blank=True)),
             ('name', self.gf('django.db.models.fields.CharField')(max_length=255)),
             ('date', self.gf('django.db.models.fields.DateField')(null=True, blank=True)),
             (u'lft', self.gf('django.db.models.fields.PositiveIntegerField')(db_index=True)),
@@ -19,10 +19,10 @@ class Migration(SchemaMigration):
             (u'tree_id', self.gf('django.db.models.fields.PositiveIntegerField')(db_index=True)),
             (u'level', self.gf('django.db.models.fields.PositiveIntegerField')(db_index=True)),
         ))
-        db.send_create_signal(u'user', ['Duties'])
+        db.send_create_signal(u'site_user', ['Duties'])
 
         # Adding model 'Staff'
-        db.create_table(u'user_staff', (
+        db.create_table(u'site_user_staff', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('name', self.gf('django.db.models.fields.CharField')(max_length=255)),
             ('surname', self.gf('django.db.models.fields.CharField')(max_length=255)),
@@ -30,39 +30,39 @@ class Migration(SchemaMigration):
             ('date_expire', self.gf('django.db.models.fields.DateField')(null=True, blank=True)),
             ('date', self.gf('django.db.models.fields.DateField')(null=True, blank=True)),
         ))
-        db.send_create_signal(u'user', ['Staff'])
+        db.send_create_signal(u'site_user', ['Staff'])
 
         # Adding M2M table for field user on 'Staff'
-        m2m_table_name = db.shorten_name(u'user_staff_user')
+        m2m_table_name = db.shorten_name(u'site_user_staff_user')
         db.create_table(m2m_table_name, (
             ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
-            ('staff', models.ForeignKey(orm[u'user.staff'], null=False)),
+            ('staff', models.ForeignKey(orm[u'site_user.staff'], null=False)),
             ('user', models.ForeignKey(orm[u'auth.user'], null=False))
         ))
         db.create_unique(m2m_table_name, ['staff_id', 'user_id'])
 
         # Adding model 'DateDuties'
-        db.create_table(u'user_dateduties', (
+        db.create_table(u'site_user_dateduties', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('date', self.gf('django.db.models.fields.DateField')()),
             ('date_expire', self.gf('django.db.models.fields.DateField')(null=True, blank=True)),
-            ('staff', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['user.Staff'])),
+            ('staff', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['site_user.Staff'])),
         ))
-        db.send_create_signal(u'user', ['DateDuties'])
+        db.send_create_signal(u'site_user', ['DateDuties'])
 
 
     def backwards(self, orm):
         # Deleting model 'Duties'
-        db.delete_table(u'user_duties')
+        db.delete_table(u'site_user_duties')
 
         # Deleting model 'Staff'
-        db.delete_table(u'user_staff')
+        db.delete_table(u'site_user_staff')
 
         # Removing M2M table for field user on 'Staff'
-        db.delete_table(db.shorten_name(u'user_staff_user'))
+        db.delete_table(db.shorten_name(u'site_user_staff_user'))
 
         # Deleting model 'DateDuties'
-        db.delete_table(u'user_dateduties')
+        db.delete_table(u'site_user_dateduties')
 
 
     models = {
@@ -102,25 +102,25 @@ class Migration(SchemaMigration):
             'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
-        u'user.dateduties': {
+        u'site_user.dateduties': {
             'Meta': {'object_name': 'DateDuties'},
             'date': ('django.db.models.fields.DateField', [], {}),
             'date_expire': ('django.db.models.fields.DateField', [], {'null': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'staff': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['user.Staff']"})
+            'staff': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['site_user.Staff']"})
         },
-        u'user.duties': {
+        u'site_user.duties': {
             'Meta': {'object_name': 'Duties'},
             'date': ('django.db.models.fields.DateField', [], {'null': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             u'level': ('django.db.models.fields.PositiveIntegerField', [], {'db_index': 'True'}),
             u'lft': ('django.db.models.fields.PositiveIntegerField', [], {'db_index': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            'parent': ('mptt.fields.TreeForeignKey', [], {'to': u"orm['user.Duties']", 'null': 'True', 'blank': 'True'}),
+            'parent': ('mptt.fields.TreeForeignKey', [], {'to': u"orm['site_user.Duties']", 'null': 'True', 'blank': 'True'}),
             u'rght': ('django.db.models.fields.PositiveIntegerField', [], {'db_index': 'True'}),
             u'tree_id': ('django.db.models.fields.PositiveIntegerField', [], {'db_index': 'True'})
         },
-        u'user.staff': {
+        u'site_user.staff': {
             'Meta': {'object_name': 'Staff'},
             'date': ('django.db.models.fields.DateField', [], {'null': 'True', 'blank': 'True'}),
             'date_expire': ('django.db.models.fields.DateField', [], {'null': 'True', 'blank': 'True'}),
@@ -132,4 +132,4 @@ class Migration(SchemaMigration):
         }
     }
 
-    complete_apps = ['user']
+    complete_apps = ['site_user']
