@@ -18,6 +18,8 @@
     <link href="/static/bootstrap/css/styles/alert-blackgloss.css" rel="stylesheet" media="screen">
     <link href="/static/bootstrap/css/bootstrap-switch.css" rel="stylesheet" media="screen">
     <link href="/static/bootstrap/css/bootstrap-wysihtml5.css" rel="stylesheet" media="screen">
+    <link href="/static/bootstrap/css/datepicker.css" rel="stylesheet" media="screen">
+    {% block css %}{% endblock %}
     <link href="/static/bootstrap/css/main.css" rel="stylesheet" media="screen">
 
 </head>
@@ -71,12 +73,14 @@
 <script src="/static/bootstrap/js/prettify.js"></script>
 <script src="/static/bootstrap/js/bootstrap-notify.js"></script>
 <script src="/static/bootstrap/js/bootstrap-switch.min.js"></script>
-<script src="/static/bootstrap/js/bootstrap-datetimepicker.js"></script>
+<script src="/static/bootstrap/js/bootstrap-datepicker.js"></script>
 <script src="/static/bootstrap/js/wysihtml5-0.3.0.js"></script>
 <script src="/static/bootstrap/js/bootstrap-wysihtml5-0.0.2.js"></script>
 <script src="/static/bootstrap/js/jquery.validate.js"></script>
 <script src="/static/bootstrap/js/jquery.validate.bootstrap.js"></script>
 <script src="/static/bootstrap/js/uploads.js"></script>
+<script src="/static/bootstrap/js/helpers.js"></script>
+{% block js %}{% endblock %}
 <script src="/static/bootstrap/js/main.js"></script>
 </body>
 </html>

@@ -2,3 +2,4 @@ django >= 1.5
 django-debug-toolbar
 south
 django-mptt
+python-dateutil

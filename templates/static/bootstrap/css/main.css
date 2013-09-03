@@ -49,4 +49,13 @@ ul.list, ol.list {
 
 ul.list li, ol.list li {
     list-style: none;
+    cursor: pointer;
+    position: relative;
+}
+
+.ui-draggable-dragging {
+    z-index: 99999;
+}
+.ui-state-hover {
+    border: 1px solid #42b142 !important;
 }

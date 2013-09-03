@@ -66,12 +66,11 @@ function show_model(data) {
 
 
 
-
 $(function () {
 
-    $('body').tooltip({
+    /*$('body').tooltip({
         selector: ".tooltips"
-    });
+    });*/
 
     /*var data = {
             'head': "Задать вопрос",
@@ -87,6 +86,31 @@ $(function () {
 
     $("a[href$='.jpg'], a[href$='.png'], a[href$='.gif'], a[href$='.jpeg'], .lightbox").lightBox();
 
+    if (isset(errors)) {
+        for (var i=0; i<errors.length; i++) {
+            $('.top-right').notify({
+                message: { text: errors[i] }, type: 'error'
+            }).show();
+        }
+    }
+    if (isset(success)) {
+        for (var i=0; i<errors.length; i++) {
+            $('.top-right').notify({
+                message: { text: errors[i] }, type: 'success'
+            }).show();
+        }
+    }
+
+    if ($('.date_picer').size() > 0) {
+        var date = new Date()
+        $('.date_picer').datepicker({
+            'format': 'dd.mm.yyyy',
+            'weekStart': 1
+        });
+    }
 
 
 });
+
+
+

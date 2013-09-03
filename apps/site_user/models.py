@@ -34,6 +34,7 @@ class DateDuties(models.Model):
     date = models.DateField()
     date_expire = models.DateField(blank=True, null=True)
     staff = models.ForeignKey(Staff)
+    duty = models.ForeignKey(Duties)
 
 
 mptt.register(Duties)

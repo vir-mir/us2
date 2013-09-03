@@ -1,5 +1,3 @@
-function isset(a){return(a===null||a===''||a===false||a===undefined)?false:true}function to_int(a){if(!isNaN(Number(a)))return Number(a);else return 0}function to_str(a){return String(a)}function explode(a,b){return b.split(a)}function implode(a,b){var c="";for(var i=0;i<b.length;++i){c+=b[i]+a}return trim(c,a)}function trimLeft(a,b){if(!isset(b))b="^[ ]+";else b="^["+b+"]+";var c=new RegExp(b,"i");return a.replace(c,'')}function trimRight(a,b){if(!isset(b))b="[ ]+$";else b="["+b+"]+$";var c=new RegExp(b,"i");return a.replace(c,'')}function trim(a,b){return trimLeft(trimRight(a,b),b)}function p(){for(var i=0;i<arguments.length;i++){alert("arguments["+i+"] = "+arguments[i])}}function t(){for(var i=0;i<arguments.length;i++){alert("arguments["+i+"] = "+arguments[i].toSource())}}
-
 /**
  *
  * @param data
@@ -67,12 +65,24 @@ function show_model(data) {
 }
 
 
+function alert_error(er) {
+    $('.top-right').notify({
+        message: { text: er }, type: 'error'
+    }).show();
+}
+
+function alert_messeng(er) {
+    $('.top-right').notify({
+        message: { text: er }, type: 'success'
+    }).show();
+}
+
 
 $(function () {
 
-    $('body').tooltip({
+    /*$('body').tooltip({
         selector: ".tooltips"
-    });
+    });*/
 
     /*var data = {
             'head': "Задать вопрос",
@@ -103,78 +113,16 @@ $(function () {
         }
     }
 
-
-    if ($('#add_duty').size() > 0) {
-        add_duty();
+    if ($('.date_picer').size() > 0) {
+        var date = new Date()
+        $('.date_picer').datepicker({
+            'format': 'dd.mm.yyyy',
+            'weekStart': 1
+        });
     }
-
 
 
 });
 
 
 
-var duty = 0;
-
-function add_edit_duty(obj) {
-    $('#add_duty').addClass('disabled');
-    $('#add_duty').unbind('click');
-    obj.attr('disabled', true);
-
-    var id = obj.parents('li').attr('id').replace(/duty-/ig, '')
-    var name = obj.val()
-    var parent = obj.parents('li').attr('parent')
-
-    $.get('/admin/user/', {action: 'add_edit_duty', id: id, name:name, parent:parent}, function (data) {
-        alert(data)
-        $('#add_duty').removeClass('disabled');
-        $('#add_duty').unbind('click');
-        obj.parents('li').remove()
-        return false;
-    });
-
-    return false;
-}
-
-function duty_html(obj, id) {
-    var parent = duty > 0?duty:0;
-    var html = "<li id='duty-"+id+"' parent='"+parent+"'>" +
-            "<div class='row-fluid'>" +
-            "<div class='span6'><span><input class='span12 duty_name' type='text' name='name' /></span></div>" +
-        "</li>";
-
-    obj.prepend(html)
-
-    $('.duty_name').unbind('blur', 'keyup');
-    $('.duty_name').keyup(function (event) {
-        if (event.keyCode == 13) {
-            add_edit_duty($(this));
-        }
-        return false;
-    });
-    $('.duty_name').blur(function (event) {
-        add_edit_duty($(this));
-        return false;
-    });
-
-
-}
-
-function add_duty() {
-    $('#duty_list li').unbind('click');
-    $('#duty_list li').click(function () {
-        duty = $(this).attr('id').replace(/duty-/, '');
-        if ($(this).hasClass('alert-info')) {
-            $(this).removeClass('alert-info');
-            duty = 0;
-        } else {
-            $('#duty_list li').removeClass('alert-info');
-            $(this).addClass('alert-info');
-        }
-    });
-
-    $('#add_duty').click(function () {
-        duty_html($('#duty_list'), 0)
-        return false;
-    });
-}
