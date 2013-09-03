@@ -59,3 +59,7 @@ ul.list li, ol.list li {
 .ui-state-hover {
     border: 1px solid #42b142 !important;
 }
+
+.notifications {
+    z-index: 99999999;
+}

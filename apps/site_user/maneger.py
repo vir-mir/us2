@@ -19,7 +19,7 @@ class ManegerUser():
         return data
 
     def getStaffDuties(self, date, id_duty):
-        return DateDuties.objects.filter(date__lte=date, duty_id=id_duty)
+        return DateDuties.objects.order_by('date_expire').filter(date__lte=date, duty_id=id_duty)
 
     def getStaffDutiesNull(self, duty):
         try:
@@ -52,8 +52,11 @@ class ManegerUser():
         data = self.getStaffDutiesNull(duty)
 
         if data:
-            data.date_expire = date
-            data.save()
+            if data.date == date or date <= data.date :
+                data.delete()
+            else:
+                data.date_expire = date
+                data.save()
 
         date_duties = DateDuties()
 

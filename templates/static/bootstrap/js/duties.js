@@ -60,10 +60,10 @@ function duty_html(obj, id, parent, val) {
 
 
 }
-function alertPosition() {
+function alertPosition(obj) {
     $('#alert').css({
             'position': 'absolute',
-            'top': -$('#alert').height()-10,
+            'top': obj.height()+10,
             'left': 30
         });
 }
@@ -112,7 +112,7 @@ function add_duty() {
     });
     $('#duty_list li').hover(function () {
 
-        var html = '<div id="alert" class="popover top show">' +
+        var html = '<div id="alert" class="popover bottom show">' +
             '<div class="arrow"></div>' +
             '<h3 class="popover-title">Загрузка...</h3>' +
             '<div class="popover-content">' +
@@ -120,16 +120,27 @@ function add_duty() {
             '</div>' +
             '</div>';
         $('>div', this).append(html)
-        alertPosition();
+        alertPosition($(this));
+        var obj = $(this);
         var id = $(this).attr('id').replace(/duty-/, '')
         $.get('/admin/user/', {action: 'info', id: id, date: $('.date_picer').val()}, function (data) {
             $('#alert .popover-title').html(data.name);
             var html = '<p>Дата создания: '+data.date+'</p>';
             if (isset(data.staff)) {
-                alert(data.staff)
+                html += '<p><strong>Работники:</strong></p>';
+                $.each(data.staff, function (k,v) {
+                    var date_expire = isset(v.date_expire)?" - " + v.date_expire:'';
+                    html += "<p class='offset1'>" +
+                        v.name +
+                        " (" +
+                        v.date +
+                        date_expire +
+                        ")" +
+                        "</p>"
+                });
             }
             $('#alert .popover-content').html(html);
-            alertPosition();
+            alertPosition(obj);
         }, 'json');
 
     }, function () {

@@ -71,13 +71,16 @@ def admin_user(request):
         ret = {
             'name': data.name,
             'date': "%s.%s.%s" % (data.date.day, data.date.month, data.date.year),
-            'staff': None,
+            'staff': [],
         }
         if staffs:
             for staff in staffs:
-                if not ret['staff']:
-                    ret['staff'] = []
-                ret['staff'].append("%s %s.%s." % (staff.staff.surname, staff.staff.name[0], staff.staff.patronymic[0]))
+                item = {
+                    'name': "%s %s.%s." % (staff.staff.surname, staff.staff.name[0], staff.staff.patronymic[0]),
+                    'date': staff.date.strftime('%d.%m.%Y'),
+                    'date_expire': staff.date_expire.strftime('%d.%m.%Y') if staff.date_expire else staff.date_expire,
+                }
+                ret['staff'].append(item)
 
         return HttpResponse(json.dumps(ret, sort_keys=True))
 
