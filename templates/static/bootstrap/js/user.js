@@ -98,7 +98,12 @@ function add_edit_user(obj) {
         staff: staff,
         id: id
     }, function(data) {
-        window.document.location.href = window.document.location.href
+        if (data==1)
+            window.document.location.href = window.document.location.href
+        else {
+            alert_error(data)
+            obj.find('input[name=username], input[name=password]').attr('disabled', false);
+        }
     });
 }
 

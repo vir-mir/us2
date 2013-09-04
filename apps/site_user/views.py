@@ -42,9 +42,11 @@ def admin_user(request):
             and request.GET.has_key('action') \
             and request.GET['action'] == 'add_edit_user':
         data = request.GET.copy()
-        statics.user_obj.addEditUser(data)
-
-        return HttpResponse(1)
+        user = statics.user_obj.addEditUser(data)
+        if user:
+            return HttpResponse(1)
+        else:
+            return HttpResponse(u'Такой пользователь уже занят!')
 
     if request.method == 'GET' \
             and request.GET.has_key('action') \
@@ -86,7 +88,7 @@ def admin_user(request):
         return HttpResponse(json.dumps(ret, sort_keys=True))
 
     duties = statics.user_obj.getDutiesTree()
-    staffs = statics.user_obj.getStaffs()
+    staffs = statics.user_obj.getStaffsExpire()
 
     return render(request, 'user/admin_user.html', {
         'duties': duties,

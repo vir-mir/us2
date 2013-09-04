@@ -48,8 +48,8 @@ class ManegerUser():
 
         return data
 
-    def getStaffs(self):
-        return Staff.objects.all()
+    def getStaffsExpire(self):
+        return Staff.objects.filter(date_expire=None)
 
     def getUserId(self, id):
         try:
@@ -162,6 +162,13 @@ class ManegerUser():
             return users
         return None
 
+    def getUserName(self, username):
+        try:
+            data = User.objects.get(username=username)
+        except BaseException:
+            data = None
+        return data
+
     def addEditUser(self, param):
         if param.has_key('id'):
             id = int(param['id'])
@@ -169,6 +176,8 @@ class ManegerUser():
             id = 0
 
         if id == 0:
+            if self.getUserName(str(param['username'].encode('utf-8'))):
+                return None
             user = User()
         else:
             user = self.getUserId(id)
