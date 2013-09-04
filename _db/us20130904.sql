@@ -271,7 +271,7 @@ CREATE TABLE `site_user_dateduties` (
   KEY `site_user_dateduties_7185ea2d` (`duty_id`),
   CONSTRAINT `duty_id_refs_id_94f00652` FOREIGN KEY (`duty_id`) REFERENCES `site_user_duties` (`id`),
   CONSTRAINT `staff_id_refs_id_c455a768` FOREIGN KEY (`staff_id`) REFERENCES `site_user_staff` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 #
 # Structure for the `site_user_staff_user` table : 
@@ -508,15 +508,6 @@ INSERT INTO `site_user_staff` (`id`, `name`, `surname`, `patronymic`, `date_expi
   (1,'','Вакансия','',NULL,'2013-09-03'),
   (2,'Алексей','Фирсов','Андреевич',NULL,'2013-09-03'),
   (3,'Тествов','Тест','Тестовичь',NULL,'2013-09-03');
-COMMIT;
-
-#
-# Data for the `site_user_dateduties` table  (LIMIT 0,500)
-#
-
-INSERT INTO `site_user_dateduties` (`id`, `date`, `date_expire`, `staff_id`, `duty_id`) VALUES 
-  (1,'2013-09-02','2013-09-04',2,5),
-  (2,'2013-09-04',NULL,3,5);
 COMMIT;
 
 #

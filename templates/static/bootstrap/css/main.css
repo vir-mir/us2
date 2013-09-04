@@ -60,6 +60,15 @@ ul.list li, ol.list li {
     border: 1px solid #42b142 !important;
 }
 
+.text-small {
+    font-size: 10px;
+}
+
+.block {
+    display: block;
+    visibility: visible;
+}
+
 .notifications {
     z-index: 99999999;
 }

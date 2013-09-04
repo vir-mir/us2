@@ -64,6 +64,14 @@ function treeNode(obj, tree_class) {
 
 }
 
+function showStaffTree(obj) {
+    if (obj.parents('.well').next().find('small').hasClass('hidden'))
+        obj.parents('.well').next().find('small').removeClass('hidden').addClass('block');
+    else
+        obj.parents('.well').next().find('small').addClass('hidden').removeClass('block');
+    return false;
+}
+
 function start_tree(tree_class) {
     $('.'+tree_class+' > ul').attr('role', tree_class).find('ul').attr('role', 'group');
 	$('.'+tree_class+'').find('li:has(ul)').addClass('parent_li').attr('role', 'treeitem');
@@ -85,12 +93,18 @@ function start_tree(tree_class) {
     }
 
     var level = eval(tree_class+'_level');
+    var is_duties_dynamic = eval(tree_class+'_is_duties_dynamic');
 
-    if (level > 0) {
-        var html = '<div class="well well-small">';
+    if (level > 0 || is_duties_dynamic) {
+        var html = '<div class="well well-small"><div class="pull-left">';
         for (var i = 1; i<level+1;i++)
             html += '<a href="#" class="badge badge-info" onclick="return level_tree('+i+', \''+tree_class+'\')">'+i+'</a> ';
-        html += '</div>';
+        html += '</div><div class="pull-right">' +
+            '<a href="#" onclick="return showStaffTree($(this));"><i class="icon-user"></i></a>' +
+            '</div>';
+        html += '<div class="clearfix"></div></div>';
+
+
         $('.'+tree_class).before(html)
     }
 

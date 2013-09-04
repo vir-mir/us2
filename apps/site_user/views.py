@@ -19,7 +19,7 @@ def admin_user(request):
 
     if request.method == 'GET' \
             and request.GET.has_key('action') \
-            and request.GET['action'] == 'get_user_staffs'  :
+            and request.GET['action'] == 'get_user_staffs':
         data = request.GET.copy()
         users = statics.user_obj.getUserStaff(int(data['staff']))
         ret = {}
@@ -31,7 +31,7 @@ def admin_user(request):
 
     if request.method == 'GET' \
             and request.GET.has_key('action') \
-            and ( request.GET['action'] == 'drag-and-drop'
+            and (request.GET['action'] == 'drag-and-drop'
                   or request.GET['action'] == 'add_edit_duty'):
         data = request.GET.copy()
         statics.user_obj.addEditDuties(data)
@@ -67,20 +67,21 @@ def admin_user(request):
             and request.GET['action'] == 'info':
         data = statics.user_obj.getDutiesId(request.GET['id'])
         date = statics.date_sql(request.GET['date'])
-        staffs = statics.user_obj.getStaffDuties(date, data.id)
+        staff = statics.user_obj.getStaffDuties(date, data.id)
         ret = {
             'name': data.name,
             'date': data.date.strftime('%d.%m.%Y'),
             'staff': [],
         }
-        if staffs:
-            for staff in staffs:
-                item = {
-                    'name': "%s %s.%s." % (staff.staff.surname, staff.staff.name[0], staff.staff.patronymic[0]),
-                    'date': staff.date.strftime('%d.%m.%Y'),
-                    'date_expire': staff.date_expire.strftime('%d.%m.%Y') if staff.date_expire else staff.date_expire,
-                }
-                ret['staff'].append(item)
+        if staff:
+            item = {
+                'name': "%s %s.%s." % (staff.staff.surname if staff.staff.surname else '',
+                                       staff.staff.name[0] if staff.staff.name else '',
+                                       staff.staff.patronymic[0] if staff.staff.patronymic else ''),
+                'date': staff.date.strftime('%d.%m.%Y'),
+                'date_expire': staff.date_expire.strftime('%d.%m.%Y') if staff.date_expire else staff.date_expire,
+            }
+            ret['staff'].append(item)
 
         return HttpResponse(json.dumps(ret, sort_keys=True))
 

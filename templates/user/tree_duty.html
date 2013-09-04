@@ -1,7 +1,11 @@
 {% load mptt_tags %}
+{% load site_tags %}
 
 <script type="text/javascript">
-    var {% if duty_list == 'duty_list' %}tree_level{% else %}tree_left_level{% endif %} = {% if level_duties > 0 %}{{ level_duties }}{% else %}0{% endif %};
+    var {% if duty_list == 'duty_list' %}tree_level{% else %}tree_left_level{% endif %} =
+            {% if level_duties > 0 %}{{ level_duties }}{% else %}0{% endif %};
+    var {% if duty_list == 'duty_list' %}tree_is_duties_dynamic{% else %}tree_left_is_duties_dynamic{% endif %} =
+            {% if is_duties_dynamic %}true{% else %}false{% endif %};
 </script>
 <div class="{% if duty_list == 'duty_list' %}tree{% else %}tree_left{% endif %}">
     <ul id="{{ duty_list }}" class="list">
@@ -13,7 +17,11 @@
                     {% else %}
                         <i class="icon-folder-close ui-widget-content ui-widget-header"></i>
                     {% endif %}
-                    {{ node.name }}
+                    {{ node.name }} {% if is_duties_dynamic %}
+                                        <small
+                                                class="muted text-small hidden offset1"
+                                                >{% get_dutu_dynamic request node.id %}</small>
+                                    {% endif %}
                 </div>
                 {% if not node.is_leaf_node %}
                     <ul class="offset1">
