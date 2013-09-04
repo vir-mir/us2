@@ -1,0 +1,1 @@
+{% if request.COOKIES.date %}{{ request.COOKIES.date }}{% else %}{% now 'd.m.Y' %}{% endif %}

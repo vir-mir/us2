@@ -1,24 +1,12 @@
 {% extends 'base.html' %}
-{% load mptt_tags %}
+{% load site_tags %}
 
 {% block js %}
 
     <script src="/static/jui/js/jquery-ui-1.10.3.custom.min.js"></script>
-    <script src="/static/bootstrap/js/tree.js"></script>
     <script src="/static/bootstrap/js/duties.js"></script>
     <script src="/static/bootstrap/js/staff.js"></script>
     <script src="/static/bootstrap/js/user.js"></script>
-
-    <script type="text/javascript">
-        {% recursetree duties %}
-            if (!isset(duty_parent.i{{ node.parent_id }}))
-                duty_parent.i{{ node.parent_id }} = new Array();
-            duty_parent.i{{ node.parent_id }}.push({{ node.id }})
-            {% if not node.is_leaf_node %}
-                {{ children }}
-            {% endif %}
-        {% endrecursetree %}
-    </script>
 
 {% endblock %}
 
@@ -32,7 +20,7 @@
         </div>
 
         <div class="pull-right">
-            <input name="date" type="text" class="date_picer" />
+            <input name="date" value="{% include 'site/date.html' %}" type="text" class="date_picer" />
         </div>
 
         <div class="clearfix"></div>
@@ -43,24 +31,7 @@
 
         <div class="span4">
             <h5 class="text-center">Должность</h5>
-            <div class="tree">
-                <ul id="duty_list" class="list">
-                    {% recursetree duties %}
-                        <li id="duty-{{ node.id }}" parent='{% if node.parent_id %}{{ node.parent_id }}{% else %}0{% endif %}'>
-                            <div class="offset{{ node.level }}">
-                                {% if not node.is_leaf_node %}
-                                    <i class="icon-plus ui-widget-content ui-widget-header"></i>
-                                {% else %}
-                                    <i class="icon-folder-close ui-widget-content ui-widget-header"></i>
-                                {% endif %}
-                                {{ node.name }}</div>
-                        </li>
-                        {% if not node.is_leaf_node %}
-                            {{ children }}
-                        {% endif %}
-                    {% endrecursetree %}
-                </ul>
-            </div>
+            {% include 'user/tree_duty.html' %}
         </div>
         <div class="span4">
             <h5 class="text-center">Сотрудники ФИО</h5>

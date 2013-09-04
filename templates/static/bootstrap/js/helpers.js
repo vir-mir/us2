@@ -2,3 +2,21 @@ function isset(a){return(a===null||a===''||a===false||a===undefined)?false:true}
 
 
 var loader = '<img src="/static/bootstrap/img/loading.gif" />';
+
+function date_rus(date){
+    var date_str = ((date.getDate()<10)?("0"):(""))+date.getDate();
+    date_str += '.';
+    date_str += ((date.getMonth()<9)?("0"):(""))+(date.getMonth()+1);
+    date_str += '.';
+    date_str += date.getFullYear();
+    return date_str;
+}
+
+function date_sql(date){
+    var date_str = date.getFullYear();
+    date_str += '-';
+    date_str += ((date.getMonth()<9)?("0"):(""))+(date.getMonth()+1);
+    date_str += '-';
+    date_str += ((date.getDate()<10)?("0"):(""))+date.getDate();
+    return date_str
+}

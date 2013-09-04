@@ -118,7 +118,12 @@ $(function () {
         $('.date_picer').datepicker({
             'format': 'dd.mm.yyyy',
             'weekStart': 1
-        });
+        }).on('changeDate', function(ev){
+					var dd = new Date(ev.date.valueOf());
+                    dd = date_rus(dd)
+                    $.cookie('date', dd);
+					window.document.location.reload();
+				});;
     }
 
 

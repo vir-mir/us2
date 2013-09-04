@@ -126,7 +126,7 @@ function add_duty() {
         $.get('/admin/user/', {action: 'info', id: id, date: $('.date_picer').val()}, function (data) {
             $('#alert .popover-title').html(data.name);
             var html = '<p>Дата создания: '+data.date+'</p>';
-            if (isset(data.staff)) {
+            if (isset(data.staff) && data.staff.length > 0) {
                 html += '<p><strong>Работники:</strong></p>';
                 $.each(data.staff, function (k,v) {
                     var date_expire = isset(v.date_expire)?" - " + v.date_expire:'';

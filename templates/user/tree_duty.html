@@ -1,0 +1,29 @@
+{% load mptt_tags %}
+<div class="tree">
+    <ul id="{{ duty_list }}" class="list">
+        {% recursetree duties %}
+            <li id="duty-{{ node.id }}" parent='{% if node.parent_id %}{{ node.parent_id }}{% else %}0{% endif %}'>
+                <div class="offset{{ node.level }}">
+                    {% if not node.is_leaf_node %}
+                        <i class="icon-plus ui-widget-content ui-widget-header"></i>
+                    {% else %}
+                        <i class="icon-folder-close ui-widget-content ui-widget-header"></i>
+                    {% endif %}
+                    {{ node.name }}</div>
+            </li>
+            {% if not node.is_leaf_node %}
+                {{ children }}
+            {% endif %}
+        {% endrecursetree %}
+    </ul>
+</div>
+<script type="text/javascript">
+    {% recursetree duties %}
+        if (!isset(duty_parent.i{{ node.parent_id }}))
+            duty_parent.i{{ node.parent_id }} = new Array();
+        duty_parent.i{{ node.parent_id }}.push({{ node.id }})
+        {% if not node.is_leaf_node %}
+            {{ children }}
+        {% endif %}
+    {% endrecursetree %}
+</script>

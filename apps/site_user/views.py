@@ -16,6 +16,7 @@ def admin_user(request):
     :param request:
     :return:
     """
+
     if request.method == 'GET' \
             and request.GET.has_key('action') \
             and ( request.GET['action'] == 'drag-and-drop'
@@ -66,11 +67,11 @@ def admin_user(request):
             and request.GET.has_key('action') \
             and request.GET['action'] == 'info':
         data = statics.user_obj.getDutiesId(request.GET['id'])
-        date = statics.date_sql(request.GET['date']) + relativedelta(days=1)
+        date = statics.date_sql(request.GET['date'])
         staffs = statics.user_obj.getStaffDuties(date, data.id)
         ret = {
             'name': data.name,
-            'date': "%s.%s.%s" % (data.date.day, data.date.month, data.date.year),
+            'date': data.date.strftime('%d.%m.%Y'),
             'staff': [],
         }
         if staffs:
@@ -89,6 +90,7 @@ def admin_user(request):
 
     return render(request, 'user/admin_user.html', {
         'duties': duties,
-        'staffs': staffs
+        'staffs': staffs,
+        'duty_list': 'duty_list'
     })
 
