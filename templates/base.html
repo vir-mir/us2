@@ -46,7 +46,9 @@
     </div>
 
     <div class="row-fluid">
-        <div class="span2">zxzxczx</div>
+        <div class="span2">
+            {% left_site_bar request %}
+        </div>
         <div class="span10">
             <div class="container-fluid">
                 {% block content %}{% endblock %}
@@ -81,6 +83,7 @@
 <script src="/static/bootstrap/js/uploads.js"></script>
 <script src="/static/bootstrap/js/jquery.cookie.js"></script>
 <script src="/static/bootstrap/js/helpers.js"></script>
+{% block js_text %}{% endblock %}
 <script src="/static/bootstrap/js/tree.js"></script>
 {% block js %}{% endblock %}
 <script src="/static/bootstrap/js/main.js"></script>

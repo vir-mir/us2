@@ -25,11 +25,11 @@ function add_edit_duty(obj) {
 function duty_html(obj, id, parent, val) {
     val = trim(val, '\t\n\r ');
     var html = "<li id='duty-"+id+"' parent='"+parent+"'>" +
-            "<div class='offset0'><input class='span12 duty_name' value='"+val+"' type='text' name='name' /></div>" +
+            "<div><input class='span12 duty_name' value='"+val+"' type='text' name='name' /></div>" +
         "</li>";
 
     if (duty==0) {
-        obj.prepend(html)
+        obj.parent().prepend(html)
     } else {
         if (obj.find('li').size() > 0) {
             $('#duty-'+duty).after(html)
@@ -37,9 +37,6 @@ function duty_html(obj, id, parent, val) {
             obj.after(html)
         }
 
-        var offset = $('#duty-'+duty+' div').attr('class').replace(/[^\d]+/, '');
-        offset = Number(offset)+1;
-        $('#duty-'+id+' div').attr('class','offset'+offset);
         if (!(obj.find('li').size() > 0)) {
             obj.remove();
         }
@@ -72,13 +69,13 @@ function add_duty() {
     $('#alert').remove();
 
     try {
-        $('#duty_list li i').droppable('destroy');
-        $('#duty_list li i').draggable('destroy');
+        $('#duty_list li div i').droppable('destroy');
+        $('#duty_list li div i').draggable('destroy');
     } catch (exception_var) { true }
 
 
-    $('#duty_list li i').draggable({ revert: true });
-    $('#duty_list li i').droppable({
+    $('#duty_list li div i').draggable({ revert: true });
+    $('#duty_list li div i').droppable({
         activeClass: "ui-state-active",
         hoverClass: "ui-state-hover",
         over: function (event, ui) {
@@ -97,20 +94,20 @@ function add_duty() {
 
 
 
-    $('#duty_list li').unbind('click');
-    $('#duty_list li').unbind('hover');
-    $('#duty_list li').unbind('dblclick');
-    $('#duty_list li').dblclick(function () {
+    $('#duty_list li div').unbind('click');
+    $('#duty_list li div').unbind('hover');
+    $('#duty_list li div').unbind('dblclick');
+    $('#duty_list li div').dblclick(function () {
         if (!$(this).hasClass('alert-info')) {
             $(this).click();
         }
-        var parent = $(this).attr('parent');
-        var id = $(this).attr('id').replace(/duty-/,'');
+        var parent = $(this).parent().attr('parent');
+        var id = $(this).parent().attr('id').replace(/duty-/,'');
         $('#alert').remove();
-        duty_html($(this), id, parent, $('>div', this).text());
+        duty_html($(this), id, parent, $(this).text());
         return false;
     });
-    $('#duty_list li').hover(function () {
+    $('#duty_list li div').hover(function () {
 
         var html = '<div id="alert" class="popover bottom show">' +
             '<div class="arrow"></div>' +
@@ -119,10 +116,10 @@ function add_duty() {
             '<p class="text-center">'+loader+'</p>' +
             '</div>' +
             '</div>';
-        $('>div', this).append(html)
+        $(this).append(html)
         alertPosition($(this));
         var obj = $(this);
-        var id = $(this).attr('id').replace(/duty-/, '')
+        var id = $(this).parent().attr('id').replace(/duty-/, '')
         $.get('/admin/user/', {action: 'info', id: id, date: $('.date_picer').val()}, function (data) {
             $('#alert .popover-title').html(data.name);
             var html = '<p>Дата создания: '+data.date+'</p>';
@@ -144,16 +141,16 @@ function add_duty() {
         }, 'json');
 
     }, function () {
-        $('>div>#alert', this).remove()
+        $('>#alert', this).remove()
     });
-    $('#duty_list li').click(function () {
-        duty = $(this).attr('id').replace(/duty-/, '');
-        treeNode($(this));
+    $('#duty_list li div').click(function () {
+        duty = $(this).parent().attr('id').replace(/duty-/, '');
+        treeNode($(this), 'tree');
         if ($(this).hasClass('alert-info')) {
             $(this).removeClass('alert-info');
             duty = 0;
         } else {
-            $('#duty_list li').removeClass('alert-info');
+            $('#duty_list li div').removeClass('alert-info');
             $(this).addClass('alert-info');
         }
         add_staff_user();
@@ -170,4 +167,5 @@ $(function () {
    if ($('#add_duty').size() > 0) {
         add_duty();
     }
+    start_tree('tree')
 });

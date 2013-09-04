@@ -19,8 +19,7 @@ def admin_user(request):
 
     if request.method == 'GET' \
             and request.GET.has_key('action') \
-            and ( request.GET['action'] == 'drag-and-drop'
-                  or request.GET['action'] == 'get_user_staffs'):
+            and request.GET['action'] == 'get_user_staffs'  :
         data = request.GET.copy()
         users = statics.user_obj.getUserStaff(int(data['staff']))
         ret = {}
@@ -91,6 +90,7 @@ def admin_user(request):
     return render(request, 'user/admin_user.html', {
         'duties': duties,
         'staffs': staffs,
+        #'level_duties': statics.user_obj.getLevelDuties(),
         'duty_list': 'duty_list'
     })
 

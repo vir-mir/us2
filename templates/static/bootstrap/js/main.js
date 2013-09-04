@@ -77,7 +77,6 @@ function alert_messeng(er) {
     }).show();
 }
 
-
 $(function () {
 
     /*$('body').tooltip({
@@ -126,6 +125,19 @@ $(function () {
 				});;
     }
 
+
+    start_tree('tree_left');
+    $('#duty_list_left li div').click(function () {
+
+        if (!$(this).hasClass('alert-info')) {
+            $('.tree_left li div').removeClass('alert-info')
+            $(this).addClass('alert-info')
+        }
+
+        var duty = $(this).parent().attr('id').replace(/d-/, '');
+
+        treeNode($(this), 'tree_left');
+    });
 
 });
 

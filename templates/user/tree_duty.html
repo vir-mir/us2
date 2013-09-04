@@ -1,29 +1,26 @@
 {% load mptt_tags %}
-<div class="tree">
+
+<script type="text/javascript">
+    var {% if duty_list == 'duty_list' %}tree_level{% else %}tree_left_level{% endif %} = {% if level_duties > 0 %}{{ level_duties }}{% else %}0{% endif %};
+</script>
+<div class="{% if duty_list == 'duty_list' %}tree{% else %}tree_left{% endif %}">
     <ul id="{{ duty_list }}" class="list">
         {% recursetree duties %}
-            <li id="duty-{{ node.id }}" parent='{% if node.parent_id %}{{ node.parent_id }}{% else %}0{% endif %}'>
-                <div class="offset{{ node.level }}">
+            <li level="{{ node.level }}" id="{% if duty_list == 'duty_list' %}duty{% else %}d{% endif %}-{{ node.id }}" parent='{% if node.parent_id %}{{ node.parent_id }}{% else %}0{% endif %}'>
+                <div>
                     {% if not node.is_leaf_node %}
                         <i class="icon-plus ui-widget-content ui-widget-header"></i>
                     {% else %}
                         <i class="icon-folder-close ui-widget-content ui-widget-header"></i>
                     {% endif %}
-                    {{ node.name }}</div>
+                    {{ node.name }}
+                </div>
+                {% if not node.is_leaf_node %}
+                    <ul class="offset1">
+                        {{ children }}
+                    </ul>
+                {% endif %}
             </li>
-            {% if not node.is_leaf_node %}
-                {{ children }}
-            {% endif %}
         {% endrecursetree %}
     </ul>
 </div>
-<script type="text/javascript">
-    {% recursetree duties %}
-        if (!isset(duty_parent.i{{ node.parent_id }}))
-            duty_parent.i{{ node.parent_id }} = new Array();
-        duty_parent.i{{ node.parent_id }}.push({{ node.id }})
-        {% if not node.is_leaf_node %}
-            {{ children }}
-        {% endif %}
-    {% endrecursetree %}
-</script>

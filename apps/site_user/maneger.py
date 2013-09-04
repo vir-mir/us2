@@ -1,14 +1,29 @@
 #coding: utf-8
 import datetime
 from django.contrib.auth.hashers import make_password
+from django.db.models import Max, Min
 
 from apps.site_user.models import Duties, Staff, DateDuties, User
 
 
 class ManegerUser():
 
-    def getDutiesTree(self):
-        return Duties.objects.all()
+    def getLevelDuties(self):
+        try:
+            data = Duties.objects.aggregate(level=Max('level'))['level']
+        except BaseException:
+            data = 0
+
+        return data
+
+    def getDutiesTree(self, id=None):
+        item = self.getDutiesId(id)
+        if not item:
+            return Duties.objects.all()
+        else:
+            return Duties.objects.filter(lft__gte=item.lft, rght__lte=item.rght)
+
+
 
     def getDutiesId(self, id):
         try:
