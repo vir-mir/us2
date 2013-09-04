@@ -148,6 +148,7 @@ INSTALLED_APPS = (
     'apps.site',
     'apps.site_user',
     'apps.menu',
+    'apps.task',
 )
 
 DEBUG_TOOLBAR_PANELS = (

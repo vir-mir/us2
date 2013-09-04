@@ -11,7 +11,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # index:
-    url(r'^$', 'apps.site.views.index', name='index'),
+    url(r'^$', 'apps.task.views.task', name='index'),
 
     url(r'^login/$', 'apps.site.static.fn_login', name='login'),
     url(r'^admin/user/$', 'apps.site_user.views.admin_user', name='admin_user'),
