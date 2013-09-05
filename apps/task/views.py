@@ -26,11 +26,12 @@ def add_edit_task(request):
     duty = user_obj.getStaffDuties(date, duty_id)
 
     if int(param['id']) == 0:
-        param['date_start'] = date
-        param['date_end'] = date
-        param['responsible_id'] = duty.duty_id
+        param['date_start'] = date.strftime('%d.%m.%Y')
+        param['date_end'] = date.strftime('%d.%m.%Y')
+        param['responsible'] = duty.duty
         param['staff_id'] = user_obj.getStaffUserId(request.user.id).id
         param['status_id'] = 1
+        param['percent'] = 0
 
     task = statics.task_obj.addEditTask(param)
 
@@ -58,14 +59,19 @@ def task(request):
 
     duty = user_obj.getStaffDuties(date, duty_id)
 
+    if not duty:
+        return render(request, 'site/not.html', {'text': u'Это должность пустая, вы не можете на нее проставить задачи!'})
+
+    tasks = statics.task_obj.getTasksDuty(duty.duty_id)
+
     param = {
         'duty': duty,
         'staff': user_obj.getStaffUserId(request.user.id),
         'curent_site': Site.objects.get_current(),
+        'tasks': tasks,
+        'date': date,
     }
 
-    if not duty:
-        return render(request, 'site/not.html', {'text': u'Это должность пустая, вы не можете на нее проставить задачи!'})
 
     return render(request, 'task/task.html', param)
 

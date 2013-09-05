@@ -14,6 +14,9 @@ class ManagersTask():
         except BaseException:
             return None
 
+    def getTasksDuty(self, duty_id):
+        return Task.objects.filter(responsible__id=duty_id)
+
     def addEditTask(self, param):
 
         if param.has_key('id'):
@@ -35,8 +38,8 @@ class ManagersTask():
         if param.has_key('main'):
             task.main = int(param['main'])
 
-        if param.has_key('responsible_id'):
-            task.responsible_id = int(param['responsible_id'])
+        if param.has_key('percent'):
+            task.percent = int(param['percent'])
 
         if param.has_key('important'):
             task.important = int(param['important'])
@@ -66,3 +69,9 @@ class ManagersTask():
 
 
         task.save()
+
+
+        if param.has_key('responsible'):
+            task.responsible.add(param['responsible'])
+
+        return task

@@ -1,6 +1,6 @@
 ﻿# SQL Manager 2007 for MySQL 4.5.0.4
 # ---------------------------------------
-# Host     : komtender.local
+# Host     : localhost
 # Port     : 3306
 # Database : us
 
@@ -217,7 +217,7 @@ CREATE TABLE `menu_item` (
   `rght` int(10) unsigned NOT NULL,
   `tree_id` int(10) unsigned NOT NULL,
   `level` int(10) unsigned NOT NULL,
-  `law_id` int(11),
+  `law_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `menu_item_410d0aac` (`parent_id`),
   KEY `menu_item_329f6fb3` (`lft`),
@@ -361,19 +361,20 @@ CREATE TABLE `task_task` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `parent_id` int(11) DEFAULT NULL,
   `name` varchar(255) NOT NULL,
-  `status_id` int(11),
-  `checked_id` int(11),
-  `date_start` date,
-  `date_end` date,
-  `date_checked` date,
-  `is_folder` smallint(6),
-  `important` smallint(6),
-  `main` smallint(6),
+  `status_id` int(11) DEFAULT NULL,
+  `checked_id` int(11) DEFAULT NULL,
+  `date_start` date DEFAULT NULL,
+  `date_end` date DEFAULT NULL,
+  `date_checked` date DEFAULT NULL,
+  `is_folder` smallint(6) DEFAULT NULL,
+  `important` smallint(6) DEFAULT NULL,
+  `main` smallint(6) DEFAULT NULL,
   `lft` int(10) unsigned NOT NULL,
   `rght` int(10) unsigned NOT NULL,
   `tree_id` int(10) unsigned NOT NULL,
   `level` int(10) unsigned NOT NULL,
-  `staff_id` int(11),
+  `staff_id` int(11) DEFAULT NULL,
+  `percent` smallint(6) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `task_task_410d0aac` (`parent_id`),
   KEY `task_task_48fb58bb` (`status_id`),
@@ -387,7 +388,7 @@ CREATE TABLE `task_task` (
   CONSTRAINT `parent_id_refs_id_93725a10` FOREIGN KEY (`parent_id`) REFERENCES `task_task` (`id`),
   CONSTRAINT `staff_id_refs_id_a8e2a691` FOREIGN KEY (`staff_id`) REFERENCES `site_user_staff` (`id`),
   CONSTRAINT `status_id_refs_id_9054d0b1` FOREIGN KEY (`status_id`) REFERENCES `task_status` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 #
 # Structure for the `task_task_responsible` table : 
@@ -405,7 +406,7 @@ CREATE TABLE `task_task_responsible` (
   KEY `task_task_responsible_3e381e78` (`duties_id`),
   CONSTRAINT `task_id_refs_id_bb86cd0d` FOREIGN KEY (`task_id`) REFERENCES `task_task` (`id`),
   CONSTRAINT `duties_id_refs_id_aacd71e5` FOREIGN KEY (`duties_id`) REFERENCES `site_user_duties` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 #
 # Structure for the `thumbnail_kvstore` table : 
@@ -692,12 +693,12 @@ INSERT INTO `south_migrationhistory` (`id`, `app_name`, `migration`, `applied`) 
   (2,'site_user','0001_initial','2013-09-02 22:56:25'),
   (3,'site_user','0002_auto__add_field_dateduties_duty','2013-09-03 07:12:57'),
   (4,'task','0001_initial','2013-09-04 14:55:43'),
-  (5,'mptt','0001_initial','2013-09-05 01:19:02'),
-  (6,'menu','0002_auto__add_law','2013-09-05 01:19:04'),
-  (7,'task','0002_auto__add_field_task_staff','2013-09-05 01:19:05'),
-  (8,'menu','0003_auto__del_field_law_item__add_field_item_law','2013-09-05 03:23:39'),
-  (9,'task','0003_auto__chg_field_task_status__chg_field_task_checked','2013-09-05 07:37:29'),
-  (10,'task','0004_auto__chg_field_task_date_end__chg_field_task_date_start__chg_field_ta','2013-09-05 07:40:14');
+  (5,'menu','0002_auto__add_law','2013-09-05 01:19:04'),
+  (6,'task','0002_auto__add_field_task_staff','2013-09-05 01:19:05'),
+  (7,'menu','0003_auto__del_field_law_item__add_field_item_law','2013-09-05 03:23:39'),
+  (8,'task','0003_auto__chg_field_task_status__chg_field_task_checked','2013-09-05 07:37:29'),
+  (9,'task','0004_auto__chg_field_task_date_end__chg_field_task_date_start__chg_field_ta','2013-09-05 07:40:14'),
+  (10,'task','0005_auto__add_field_task_percent','2013-09-05 09:46:05');
 COMMIT;
 
 #
@@ -712,8 +713,20 @@ COMMIT;
 # Data for the `task_task` table  (LIMIT 0,500)
 #
 
-INSERT INTO `task_task` (`id`, `parent_id`, `name`, `status_id`, `checked_id`, `date_start`, `date_end`, `date_checked`, `is_folder`, `important`, `main`, `lft`, `rght`, `tree_id`, `level`, `staff_id`) VALUES 
-  (1,NULL,'123123123',1,NULL,'2013-08-13','2013-08-13',NULL,0,NULL,NULL,1,2,1,0,2);
+INSERT INTO `task_task` (`id`, `parent_id`, `name`, `status_id`, `checked_id`, `date_start`, `date_end`, `date_checked`, `is_folder`, `important`, `main`, `lft`, `rght`, `tree_id`, `level`, `staff_id`, `percent`) VALUES 
+  (1,NULL,'тест2',1,NULL,'2013-09-05','2013-09-05',NULL,0,NULL,NULL,1,6,1,0,2,0),
+  (2,1,'asd',1,NULL,'2013-09-05','2013-09-05',NULL,0,NULL,NULL,2,5,1,1,2,0),
+  (3,2,'sadffffffffff',1,NULL,'2013-09-05','2013-09-05',NULL,0,NULL,NULL,3,4,1,2,2,0);
+COMMIT;
+
+#
+# Data for the `task_task_responsible` table  (LIMIT 0,500)
+#
+
+INSERT INTO `task_task_responsible` (`id`, `task_id`, `duties_id`) VALUES 
+  (1,1,16),
+  (2,2,16),
+  (3,3,16);
 COMMIT;
 
 #

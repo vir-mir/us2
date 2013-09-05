@@ -18,18 +18,19 @@ class Task(models.Model):
     """
         Структура дерева задач
     """
-    parent = TreeForeignKey('self', blank=True, null=True)
-    name = models.CharField(max_length=255)
-    status = models.ForeignKey(Status, blank=True, null=True)
-    checked = models.ForeignKey(Staff, blank=True, null=True)
-    staff = models.ForeignKey(Staff, related_name='emp', blank=True, null=True)
-    date_start = models.DateField(blank=True, null=True)
-    date_end = models.DateField(blank=True, null=True)
-    date_checked = models.DateField(blank=True, null=True)
-    is_folder = models.SmallIntegerField(max_length=1, blank=True, null=True)
-    important = models.SmallIntegerField(max_length=1, blank=True, null=True)
-    main = models.SmallIntegerField(max_length=1, blank=True, null=True)
-    responsible = models.ManyToManyField(Duties, blank=True, null=True)
+    parent = TreeForeignKey('self', blank=True, null=True) # родитель
+    name = models.CharField(max_length=255) # название задачи
+    percent = models.SmallIntegerField(max_length=3) # процен выполнения
+    status = models.ForeignKey(Status, blank=True, null=True) # статус задачи
+    checked = models.ForeignKey(Staff, blank=True, null=True) # пользователь закрывший забачу
+    staff = models.ForeignKey(Staff, related_name='emp', blank=True, null=True) # пользователь создавший задачу
+    date_start = models.DateField(blank=True, null=True) # Дата начала task
+    date_end = models.DateField(blank=True, null=True) # дата окончания task
+    date_checked = models.DateField(blank=True, null=True) # дата закрытия task
+    is_folder = models.SmallIntegerField(max_length=1, blank=True, null=True) # папка или задача
+    important = models.SmallIntegerField(max_length=1, blank=True, null=True) # важность задачи
+    main = models.SmallIntegerField(max_length=1, blank=True, null=True) # затача совета учередителей
+    responsible = models.ManyToManyField(Duties, blank=True, null=True) # ответственный
 
 
 mptt.register(Task)

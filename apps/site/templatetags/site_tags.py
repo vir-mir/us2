@@ -31,6 +31,23 @@ def get_dutu_dynamic(request, duty_id):
     return name
 
 
+@register.simple_tag
+def get_dutu_dynamic_nodate(request, duty_id):
+    if request.COOKIES.has_key('date'):
+        date = statics.date_sql(request.COOKIES['date'])
+    else:
+        date = statics.date_sql('')
+    staff = statics.user_obj.getStaffDuties(date, duty_id)
+    name = u''
+
+    if staff:
+        name = u"%s %s.%s." % (staff.staff.surname if staff.staff.surname else '',
+                                       staff.staff.name[0] if staff.staff.name else '',
+                                       staff.staff.patronymic[0] if staff.staff.patronymic else '')
+
+    return name
+
+
 @register.inclusion_tag('site/left.html', takes_context=True)
 def left_site_bar(context, request):
 
