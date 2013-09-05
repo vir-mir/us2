@@ -1,0 +1,596 @@
+<div class="row-fluid thumbnails">
+    <div class="span1">
+        <a href="#"
+           data-placement='bottom'
+           data-original-title='Добавить задачу'
+           id="add_task"
+           class="thumbnail tooltips"><img style="height: 50px" src="/static/img/task.jpg" /></a>
+    </div>
+    <div class="span1">
+        <a href="#"
+           data-placement='bottom'
+           data-original-title='Добавить папку'
+           class="thumbnail tooltips"><img style="height: 50px" src="/static/img/folder.jpg" /></a>
+    </div>
+    <div class="span1">
+        <a href="#"
+           data-placement='bottom'
+           data-original-title='Удалить задачу или папку'
+           class="thumbnail tooltips"><img style="height: 50px" src="/static/img/delete.png" /></a>
+    </div>
+    <div class="span1">
+        <a href="#"
+           data-placement='bottom'
+           data-original-title='Распечатать'
+           class="thumbnail tooltips"><img style="height: 50px" src="/static/img/print.png" /></a>
+    </div>
+    <div class="span1" style="padding-top: 5px;">
+        <a href="#" class="btn btn-warning">Задача совета</a>
+    </div>
+    <div class="span3" style="padding-top: 14px;">
+        <div class="input-append">
+            <input name="date" value="{% include 'site/date.html' %}" type="text" class="date_picer span10" />
+            <span class="add-on date_picer_icon"><i class="icon-calendar"></i></span>
+        </div>
+    </div>
+</div>
+
+<br />
+<br />
+
+<ul class="list list_heder">
+    <li>
+        <div class="row-fluid">
+                    <div class="span6">
+                        <h4>Наименование</h4>
+                    </div>
+                    <div class="span1">
+                    </div>
+                    <div class="span2">
+                        <h4>Ответственный</h4>
+                    </div>
+                    <div class="span1">
+                        <h4 class="offset1">%</h4>
+                    </div>
+                    <div class="span2">
+                        <h4>Сроки</h4>
+                    </div>
+                </div>
+    </li>
+</ul>
+
+<hr>
+
+
+<div class="tree_task">
+    <ul class="list" id="task_list">
+        <li level='0'
+            id="task-0"
+            parent='0'
+            is_folder='0'>
+                <div class="icon-task"><i class="icon-plus"></i></div>
+                <div class="row-fluid">
+                    <div class="span6">
+                        <div class="row-fluid">
+                            <div class="span1">
+                                <img style="height: 30px;"  src="/static/img/folder.jpg" />
+                            </div>
+                            <div class="span11">
+                                <div>Папка первая</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="span1">
+                        <div class="row-fluid">
+                            <div class="span6">
+
+                            </div>
+                            <div class="span6">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="span2">
+                        Харламовскийеонь Ж.Ф
+                    </div>
+                    <div class="span1">
+                    </div>
+                    <div class="span2">
+                        <div>21.12.2021</div>
+                        <div class="text-success">26.12.2021</div>
+                    </div>
+                </div>
+                <hr>
+
+                <ul>
+                    <li level='0'
+                        id="task-0"
+                        parent='0'
+                        is_folder='0'>
+                            <div class="icon-task"><i class="icon-plus"></i></div>
+                            <div class="row-fluid">
+                                <div class="span6">
+                                    <div class="row-fluid">
+                                        <div class="span1">
+                                            <img style="height: 30px;"  src="/static/img/task.jpg" />
+                                        </div>
+                                        <div class="span11">
+                                            <div>Задача первая</div>
+                                            <div class="small muted">
+                                                <span>Фирсов А.А</span>
+                                                <span> / </span>
+                                                <span class="text-info">23.12.2909 - Фирсов А.А</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="span1">
+                                    <div class="row-fluid">
+                                        <div class="span6">
+
+                                        </div>
+                                        <div class="span6">
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="span2">
+                                    Харламовскийеонь Ж.Ф
+                                </div>
+                                <div class="span1">
+                                    100 %
+                                </div>
+                                <div class="span2">
+                                    <div>21.12.2021</div>
+                                    <div class="text-success">26.12.2021</div>
+                                </div>
+                            </div>
+                            <hr>
+                            <ul>
+                                <li level='0'
+                                    id="task-0"
+                                    parent='0'
+                                    is_folder='0'>
+                                        <div class="icon-task"><i class="icon-plus"></i></div>
+                                        <div class="row-fluid">
+                                            <div class="span6">
+                                                <div class="row-fluid">
+                                                    <div class="span1">
+                                                        <img style="height: 30px;"  src="/static/img/task2.jpg" />
+                                                    </div>
+                                                    <div class="span11">
+                                                        <div>Задача первая</div>
+                                                        <div class="small muted">
+                                                            <span>Фирсов А.А</span>
+                                                            <span> / </span>
+                                                            <span class="text-info">23.12.2909 - Фирсов А.А</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="span1">
+                                                <div class="row-fluid">
+                                                    <div class="span6">
+
+                                                    </div>
+                                                    <div class="span6">
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="span2">
+                                                Харламовскийеонь Ж.Ф
+                                            </div>
+                                            <div class="span1">
+                                                100 %
+                                            </div>
+                                            <div class="span2">
+                                                <div>21.12.2021</div>
+                                                <div class="text-success">26.12.2021</div>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                </li>
+                            </ul>
+
+                    </li>
+                    <li level='0'
+                        id="task-0"
+                        parent='0'
+                        is_folder='0'>
+                            <div class="icon-task"><i class="icon-plus"></i></div>
+                            <div class="row-fluid">
+                                <div class="span6">
+                                    <div class="row-fluid">
+                                        <div class="span1">
+                                            <img style="height: 30px;"  src="/static/img/task.jpg" />
+                                        </div>
+                                        <div class="span11">
+                                            <div>Задача первая</div>
+                                            <div class="small muted">
+                                                <span>Фирсов А.А</span>
+                                                <span> / </span>
+                                                <span class="text-info">23.12.2909 - Фирсов А.А</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="span1">
+                                    <div class="row-fluid">
+                                        <div class="span6">
+
+                                        </div>
+                                        <div class="span6">
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="span2">
+                                    Харламовскийеонь Ж.Ф
+                                </div>
+                                <div class="span1">
+                                    100 %
+                                </div>
+                                <div class="span2">
+                                    <div>21.12.2021</div>
+                                    <div class="text-success">26.12.2021</div>
+                                </div>
+                            </div>
+                            <hr>
+                    </li>
+                </ul>
+        </li>
+        <li level='0'
+            id="task-0"
+            parent='0'
+            is_folder='0'>
+                <div class="icon-task"><i class="icon-plus"></i></div>
+                <div class="row-fluid">
+                    <div class="span6">
+                        <div class="row-fluid">
+                            <div class="span1">
+                                <img style="height: 30px;"  src="/static/img/folder.jpg" />
+                            </div>
+                            <div class="span11">
+                                <div>Папка первая</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="span1">
+                        <div class="row-fluid">
+                            <div class="span6">
+
+                            </div>
+                            <div class="span6">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="span2">
+                        Харламовскийеонь Ж.Ф
+                    </div>
+                    <div class="span1">
+                    </div>
+                    <div class="span2">
+                        <div>21.12.2021</div>
+                        <div class="text-success">26.12.2021</div>
+                    </div>
+                </div>
+                <hr>
+
+                <ul>
+                    <li level='0'
+                        id="task-0"
+                        parent='0'
+                        is_folder='0'>
+                            <div class="icon-task"><i class="icon-plus"></i></div>
+                            <div class="row-fluid">
+                                <div class="span6">
+                                    <div class="row-fluid">
+                                        <div class="span1">
+                                            <img style="height: 30px;"  src="/static/img/task.jpg" />
+                                        </div>
+                                        <div class="span11">
+                                            <div>Задача первая</div>
+                                            <div class="small muted">
+                                                <span>Фирсов А.А</span>
+                                                <span> / </span>
+                                                <span class="text-info">23.12.2909 - Фирсов А.А</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="span1">
+                                    <div class="row-fluid">
+                                        <div class="span6">
+
+                                        </div>
+                                        <div class="span6">
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="span2">
+                                    Харламовскийеонь Ж.Ф
+                                </div>
+                                <div class="span1">
+                                    100 %
+                                </div>
+                                <div class="span2">
+                                    <div>21.12.2021</div>
+                                    <div class="text-success">26.12.2021</div>
+                                </div>
+                            </div>
+                            <hr>
+                            <ul>
+                                <li level='0'
+                                    id="task-0"
+                                    parent='0'
+                                    is_folder='0'>
+                                        <div class="icon-task"><i class="icon-plus"></i></div>
+                                        <div class="row-fluid">
+                                            <div class="span6">
+                                                <div class="row-fluid">
+                                                    <div class="span1">
+                                                        <img style="height: 30px;"  src="/static/img/task2.jpg" />
+                                                    </div>
+                                                    <div class="span11">
+                                                        <div>Задача первая</div>
+                                                        <div class="small muted">
+                                                            <span>Фирсов А.А</span>
+                                                            <span> / </span>
+                                                            <span class="text-info">23.12.2909 - Фирсов А.А</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="span1">
+                                                <div class="row-fluid">
+                                                    <div class="span6">
+
+                                                    </div>
+                                                    <div class="span6">
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="span2">
+                                                Харламовскийеонь Ж.Ф
+                                            </div>
+                                            <div class="span1">
+                                                100 %
+                                            </div>
+                                            <div class="span2">
+                                                <div>21.12.2021</div>
+                                                <div class="text-success">26.12.2021</div>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                </li>
+                            </ul>
+
+                    </li>
+                    <li level='0'
+                        id="task-0"
+                        parent='0'
+                        is_folder='0'>
+                            <div class="icon-task"><i class="icon-plus"></i></div>
+                            <div class="row-fluid">
+                                <div class="span6">
+                                    <div class="row-fluid">
+                                        <div class="span1">
+                                            <img style="height: 30px;"  src="/static/img/task.jpg" />
+                                        </div>
+                                        <div class="span11">
+                                            <div>Задача первая</div>
+                                            <div class="small muted">
+                                                <span>Фирсов А.А</span>
+                                                <span> / </span>
+                                                <span class="text-info">23.12.2909 - Фирсов А.А</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="span1">
+                                    <div class="row-fluid">
+                                        <div class="span6">
+
+                                        </div>
+                                        <div class="span6">
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="span2">
+                                    Харламовскийеонь Ж.Ф
+                                </div>
+                                <div class="span1">
+                                    100 %
+                                </div>
+                                <div class="span2">
+                                    <div>21.12.2021</div>
+                                    <div class="text-success">26.12.2021</div>
+                                </div>
+                            </div>
+                            <hr>
+                    </li>
+                </ul>
+        </li>
+    <li level='0'
+            id="task-0"
+            parent='0'
+            is_folder='0'>
+                <div class="icon-task"><i class="icon-plus"></i></div>
+                <div class="row-fluid">
+                    <div class="span6">
+                        <div class="row-fluid">
+                            <div class="span1">
+                                <img style="height: 30px;"  src="/static/img/folder.jpg" />
+                            </div>
+                            <div class="span11">
+                                <div>Папка первая</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="span1">
+                        <div class="row-fluid">
+                            <div class="span6">
+
+                            </div>
+                            <div class="span6">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="span2">
+                        Харламовскийеонь Ж.Ф
+                    </div>
+                    <div class="span1">
+                    </div>
+                    <div class="span2">
+                        <div>21.12.2021</div>
+                        <div class="text-success">26.12.2021</div>
+                    </div>
+                </div>
+                <hr>
+
+                <ul>
+                    <li level='0'
+                        id="task-0"
+                        parent='0'
+                        is_folder='0'>
+                            <div class="icon-task"><i class="icon-plus"></i></div>
+                            <div class="row-fluid">
+                                <div class="span6">
+                                    <div class="row-fluid">
+                                        <div class="span1">
+                                            <img style="height: 30px;"  src="/static/img/task.jpg" />
+                                        </div>
+                                        <div class="span11">
+                                            <div>Задача первая</div>
+                                            <div class="small muted">
+                                                <span>Фирсов А.А</span>
+                                                <span> / </span>
+                                                <span class="text-info">23.12.2909 - Фирсов А.А</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="span1">
+                                    <div class="row-fluid">
+                                        <div class="span6">
+
+                                        </div>
+                                        <div class="span6">
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="span2">
+                                    Харламовскийеонь Ж.Ф
+                                </div>
+                                <div class="span1">
+                                    100 %
+                                </div>
+                                <div class="span2">
+                                    <div>21.12.2021</div>
+                                    <div class="text-success">26.12.2021</div>
+                                </div>
+                            </div>
+                            <hr>
+                            <ul>
+                                <li level='0'
+                                    id="task-0"
+                                    parent='0'
+                                    is_folder='0'>
+                                        <div class="icon-task"><i class="icon-plus"></i></div>
+                                        <div class="row-fluid">
+                                            <div class="span6">
+                                                <div class="row-fluid">
+                                                    <div class="span1">
+                                                        <img style="height: 30px;"  src="/static/img/task2.jpg" />
+                                                    </div>
+                                                    <div class="span11">
+                                                        <div>Задача первая</div>
+                                                        <div class="small muted">
+                                                            <span>Фирсов А.А</span>
+                                                            <span> / </span>
+                                                            <span class="text-info">23.12.2909 - Фирсов А.А</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="span1">
+                                                <div class="row-fluid">
+                                                    <div class="span6">
+
+                                                    </div>
+                                                    <div class="span6">
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="span2">
+                                                Харламовскийеонь Ж.Ф
+                                            </div>
+                                            <div class="span1">
+                                                100 %
+                                            </div>
+                                            <div class="span2">
+                                                <div>21.12.2021</div>
+                                                <div class="text-success">26.12.2021</div>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                </li>
+                            </ul>
+
+                    </li>
+                    <li level='0'
+                        id="task-0"
+                        parent='0'
+                        is_folder='0'>
+                            <div class="icon-task"><i class="icon-plus"></i></div>
+                            <div class="row-fluid">
+                                <div class="span6">
+                                    <div class="row-fluid">
+                                        <div class="span1">
+                                            <img style="height: 30px;"  src="/static/img/task.jpg" />
+                                        </div>
+                                        <div class="span11">
+                                            <div>Задача первая</div>
+                                            <div class="small muted">
+                                                <span>Фирсов А.А</span>
+                                                <span> / </span>
+                                                <span class="text-info">23.12.2909 - Фирсов А.А</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="span1">
+                                    <div class="row-fluid">
+                                        <div class="span6">
+
+                                        </div>
+                                        <div class="span6">
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="span2">
+                                    Харламовскийеонь Ж.Ф
+                                </div>
+                                <div class="span1">
+                                    100 %
+                                </div>
+                                <div class="span2">
+                                    <div>21.12.2021</div>
+                                    <div class="text-success">26.12.2021</div>
+                                </div>
+                            </div>
+                            <hr>
+                    </li>
+                </ul>
+        </li>
+    </ul>
+</div>

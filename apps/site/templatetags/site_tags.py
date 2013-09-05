@@ -2,6 +2,7 @@
 
 import datetime
 from django import template
+from apps.menu.statics import menu_obj
 from apps.site import static as static_site
 from apps.site_user import statics
 
@@ -49,22 +50,8 @@ def left_site_bar(context, request):
 
 @register.inclusion_tag('site/menu.html', takes_context=True)
 def menu_list(context, request):
-    if static_site.has_blokc(
-        request.user.groups.all(),
-        request.user.id,
-        request.user.is_superuser,
-        'menu'
-    ):
-        return {
-            'request': request,
-            'menu_list': static_site.getAllMenuItem(
-                request.user.groups.all(),
-                request.user.id,
-                request.user.is_superuser
-            ),
-        }
-
     return {
         'request': request,
-        'menu_list': []
+        'menu_list': menu_obj.getMenuChildren(1),
+        'parent_id': 1
     }

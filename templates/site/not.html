@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <p>{{ text }}</p>
+    <p>Выберите нужную дату!</p>
+
+    <div class="input-append">
+        <input name="date" value="{% include 'site/date.html' %}" type="text" class="date_picer" />
+        <span class="add-on date_picer_icon"><i class="icon-calendar"></i></span>
+    </div>
+
+{% endblock %}

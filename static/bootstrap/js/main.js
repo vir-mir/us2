@@ -65,12 +65,23 @@ function show_model(data) {
 }
 
 
+function alert_error(er) {
+    $('.top-right').notify({
+        message: { text: er }, type: 'error'
+    }).show();
+}
+
+function alert_messeng(er) {
+    $('.top-right').notify({
+        message: { text: er }, type: 'success'
+    }).show();
+}
 
 $(function () {
 
-    /*$('body').tooltip({
+    $('body').tooltip({
         selector: ".tooltips"
-    });*/
+    });
 
     /*var data = {
             'head': "Задать вопрос",
@@ -106,9 +117,44 @@ $(function () {
         $('.date_picer').datepicker({
             'format': 'dd.mm.yyyy',
             'weekStart': 1
-        });
+        }).on('changeDate', function(ev){
+					var dd = new Date(ev.date.valueOf());
+                    dd = date_rus(dd)
+                    $.cookie('date', dd);
+					window.document.location.reload();
+				});
+        if ($('.date_picer_icon').size() > 0) {
+            $('.date_picer_icon').click(function () {
+                $('.date_picer').datepicker('show');
+                return false;
+            });
+        }
     }
 
+
+    start_tree('tree_left');
+    $('#duty_list_left li div').click(function () {
+
+        if (!$(this).hasClass('alert-info')) {
+            $('.tree_left li div').removeClass('alert-info')
+            $(this).addClass('alert-info')
+        }
+
+        var duty = $(this).parent().attr('id').replace(/d-/, '');
+
+        treeNode($(this), 'tree_left');
+    });
+
+    $('#duty_list_left li div').dblclick(function () {
+        var duty_coock = $(this).parent().attr('id').replace(/d-/, '');
+        $.cookie('duty', duty_coock)
+        window.document.location.reload();
+        return false;
+    });
+
+    if ($.cookie('duty')) {
+        $('#d-'+Number($.cookie('duty'))+">div").addClass('alert-info');
+    }
 
 });
 

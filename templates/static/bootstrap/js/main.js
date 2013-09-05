@@ -79,9 +79,9 @@ function alert_messeng(er) {
 
 $(function () {
 
-    /*$('body').tooltip({
+    $('body').tooltip({
         selector: ".tooltips"
-    });*/
+    });
 
     /*var data = {
             'head': "Задать вопрос",
@@ -122,7 +122,13 @@ $(function () {
                     dd = date_rus(dd)
                     $.cookie('date', dd);
 					window.document.location.reload();
-				});;
+				});
+        if ($('.date_picer_icon').size() > 0) {
+            $('.date_picer_icon').click(function () {
+                $('.date_picer').datepicker('show');
+                return false;
+            });
+        }
     }
 
 
@@ -138,6 +144,17 @@ $(function () {
 
         treeNode($(this), 'tree_left');
     });
+
+    $('#duty_list_left li div').dblclick(function () {
+        var duty_coock = $(this).parent().attr('id').replace(/d-/, '');
+        $.cookie('duty', duty_coock)
+        window.document.location.reload();
+        return false;
+    });
+
+    if ($.cookie('duty')) {
+        $('#d-'+Number($.cookie('duty'))+">div").addClass('alert-info');
+    }
 
 });
 

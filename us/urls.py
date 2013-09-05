@@ -12,12 +12,14 @@ admin.autodiscover()
 urlpatterns = patterns('',
     # index:
     url(r'^$', 'apps.task.views.task', name='index'),
+    url(r'^task/$', 'apps.task.views.task', name='index'),
 
     url(r'^login/$', 'apps.site.static.fn_login', name='login'),
-    url(r'^admin/user/$', 'apps.site_user.views.admin_user', name='admin_user'),
 
     # Uncomment the next line to enable the admin:
     #url(r'^admin/', include(admin.site.urls)),
+    url(r'^admin/user/$', 'apps.site_user.views.admin_user', name='admin_user'),
+    url(r'^admin/menu/$', 'apps.menu.views.admin_menu', name='admin_menu'),
 
     # models url:
     #url(r'^article/(?P<url>.*)$', 'apps.article.views.controller'),

@@ -1,6 +1,13 @@
 {% extends 'base.html' %}
 
+{% block js %}
+
+    <script src="/static/jui/js/jquery-ui-1.10.3.custom.min.js"></script>
+    <script src="/static/bootstrap/js/task.js"></script>
+
+{% endblock %}
+
+
 {% block content %}
-    <img src="/static/img/task.jpg" />
-    <img src="/static/img/task2.jpg" />
+    {% include 'task/task_node.html' %}
 {% endblock %}

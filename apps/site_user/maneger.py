@@ -31,12 +31,42 @@ class ManegerUser():
 
         return data
 
-    def getStaffDuties(self, date, id_duty):
+    def getStaffDuties(self, date, id_duty=None):
         try:
-            return DateDuties.objects.get(
-                Q(date_expire__gt=date) | Q(date_expire=None),
-                date__lte=date,
-                duty_id=id_duty)
+            if not id_duty:
+                return DateDuties.objects.order_by('duty__lft').filter(
+                    Q(date_expire__gt=date) | Q(date_expire=None),
+                    date__lte=date)[0]
+            else:
+                return DateDuties.objects.get(
+                    Q(date_expire__gt=date) | Q(date_expire=None),
+                    date__lte=date,
+                    duty_id=id_duty)
+        except BaseException:
+            return None
+
+    def getDutiesStaff(self, date, id_staff, id_duty=None):
+        try:
+            if not id_duty:
+                return DateDuties.objects.order_by('duty__lft').filter(
+                    Q(date_expire__gt=date) | Q(date_expire=None),
+                    date__lte=date,
+                    staff_id=id_staff)[0]
+            else:
+                return DateDuties.objects.get(
+                    Q(date_expire__gt=date) | Q(date_expire=None),
+                    date__lte=date,
+                    staff_id=id_staff,
+                    duty_id=id_duty)
+        except BaseException:
+            return None
+
+    def isChildrenNodeId(self, duty_id, children_id):
+        duty = self.getDutiesId(duty_id)
+        if not duty:
+            return None
+        try:
+            return True if Duties.objects.get(lft__gt=duty.lft, rght__lt=duty.rght, id=children_id) else None
         except BaseException:
             return None
 
@@ -58,6 +88,12 @@ class ManegerUser():
             data = None
 
         return data
+
+    def getStaffUserId(self, id):
+        staff = Staff.objects.filter(user__id=id)
+        if len(staff) > 0:
+            return staff[0]
+        return None
 
     def getStaffId(self, id):
         try:

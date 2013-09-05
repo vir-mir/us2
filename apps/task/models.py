@@ -16,19 +16,20 @@ class Status(models.Model):
 
 class Task(models.Model):
     """
-        Структура дерева должностей конпаний
+        Структура дерева задач
     """
     parent = TreeForeignKey('self', blank=True, null=True)
     name = models.CharField(max_length=255)
-    status = models.ForeignKey(Status)
-    checked = models.ForeignKey(Staff)
-    date_start = models.DateField()
-    date_end = models.DateField()
-    date_checked = models.DateField()
-    is_folder = models.SmallIntegerField(max_length=1)
-    important = models.SmallIntegerField(max_length=1)
-    main = models.SmallIntegerField(max_length=1)
-    responsible = models.ManyToManyField(Duties)
+    status = models.ForeignKey(Status, blank=True, null=True)
+    checked = models.ForeignKey(Staff, blank=True, null=True)
+    staff = models.ForeignKey(Staff, related_name='emp', blank=True, null=True)
+    date_start = models.DateField(blank=True, null=True)
+    date_end = models.DateField(blank=True, null=True)
+    date_checked = models.DateField(blank=True, null=True)
+    is_folder = models.SmallIntegerField(max_length=1, blank=True, null=True)
+    important = models.SmallIntegerField(max_length=1, blank=True, null=True)
+    main = models.SmallIntegerField(max_length=1, blank=True, null=True)
+    responsible = models.ManyToManyField(Duties, blank=True, null=True)
 
 
 mptt.register(Task)

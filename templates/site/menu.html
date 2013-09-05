@@ -1,21 +1,23 @@
+{% load mptt_tags %}
+
 <ul class="nav">
-    {% if menu_list %}
-        {% for menu in menu_list %}
-            <li{% if request.path == menu.url %} class="active"{% endif %}>
-                <a href="{{ menu.url }}"{% if menu.parent %} class="dropdown-toggle" data-toggle="dropdown"{% endif %}>
-                    {{ menu.name }}
-                    {% if menu.parent %}<i class="caret"></i>{% endif %}
+
+    {% recursetree menu_list %}
+
+        <li class="{% if request.path == node.url %} active{% endif %}{% if not node.is_leaf_node %} dropdown{% endif %}">
+                <a href="{{ node.url }}"{% if not node.is_leaf_node %} class="dropdown-toggle" data-toggle="dropdown"{% endif %}>
+                    {{ node.name }}
+                    {% if not node.is_leaf_node %}<i class="caret"></i>{% endif %}
                 </a>
-                {% if menu.parent %}
+                {% if not node.is_leaf_node %}
                     <ul class="dropdown-menu">
-                        {% for parent in menu.parent %}
-                            <li{% if request.path == parent.url %} class="active"{% endif %}>
-                                <a href="{{ parent.url }}">{{ parent.name }}</a>
-                            </li>
-                        {% endfor %}
+                        {{ children }}
                     </ul>
                 {% endif %}
             </li>
-        {% endfor %}
-    {% endif %}
+        {% if node.parent_id == parent_id %}
+            <li class="divider-vertical"></li>
+        {% endif %}
+    {% endrecursetree %}
+
 </ul>

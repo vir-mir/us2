@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block js %}
+
+    <script src="/static/jui/js/jquery-ui-1.10.3.custom.min.js"></script>
+    <script src="/static/bootstrap/js/tree_menu.js"></script>
+    <script src="/static/bootstrap/js/admin_manu.js"></script>
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="well well-small">
+        <div class="pull-left">
+            <a href="#" id="add_menu" class="btn btn-small btn-primary"><i class="icon-file icon-white"></i> Создать меню</a>
+            <a href="#" id="add_block" class="btn btn-small btn-danger"><i class="icon-ban-circle icon-white"></i> Заблокировать меню</a>
+       </div>
+        <div class="clearfix"></div>
+
+    </div>
+
+    <h4>Меню</h4>
+    <div class="row-fluid">
+        <div class="span4">
+            {% include 'menu/admin_menu_tree.html' %}
+        </div>
+    </div>
+
+{% endblock %}

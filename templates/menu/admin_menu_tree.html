@@ -1,0 +1,27 @@
+{% load mptt_tags %}
+
+<script type="text/javascript">
+    var menu_level = {% if level_duties > 0 %}{{ level_duties }}{% else %}0{% endif %};
+    var tree_is_menu = {% if is_duties_dynamic %}true{% else %}false{% endif %};
+</script>
+<div class="tree_menu">
+    <ul id="menu_list" class="list">
+        {% recursetree menus %}
+            <li level="{{ node.level }}" id="menu-{{ node.id }}" parent='{% if node.parent_id %}{{ node.parent_id }}{% else %}0{% endif %}'>
+                <div>
+                    {% if not node.is_leaf_node %}
+                        <i class="icon-plus ui-widget-content ui-widget-header"></i>
+                    {% else %}
+                        <i class="icon-file ui-widget-content ui-widget-header"></i>
+                    {% endif %}
+                    {{ node.name }}~{{ node.url }}~{{ node.law.fed }}
+                </div>
+                {% if not node.is_leaf_node %}
+                    <ul class="offset1">
+                        {{ children }}
+                    </ul>
+                {% endif %}
+            </li>
+        {% endrecursetree %}
+    </ul>
+</div>

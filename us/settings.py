@@ -149,6 +149,7 @@ INSTALLED_APPS = (
     'apps.site_user',
     'apps.menu',
     'apps.task',
+    'sorl.thumbnail',
 )
 
 DEBUG_TOOLBAR_PANELS = (

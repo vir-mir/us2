@@ -52,3 +52,36 @@ ul.list li, ol.list li {
     cursor: pointer;
     position: relative;
 }
+
+.ui-draggable-dragging {
+    z-index: 99999;
+}
+.ui-state-hover {
+    border: 1px solid #42b142 !important;
+}
+
+.text-small {
+    font-size: 10px;
+}
+.small {
+    font-size: 12px;
+}
+
+.block {
+    display: block;
+    visibility: visible;
+}
+
+.date_picer_icon {
+    cursor: pointer;
+}
+
+.icon-task {
+    position: absolute;
+    left: -20px;
+    top: 7px;
+}
+
+.notifications {
+    z-index: 99999999;
+}

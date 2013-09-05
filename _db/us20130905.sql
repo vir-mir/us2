@@ -1,6 +1,6 @@
 ﻿# SQL Manager 2007 for MySQL 4.5.0.4
 # ---------------------------------------
-# Host     : localhost
+# Host     : komtender.local
 # Port     : 3306
 # Database : us
 
@@ -46,7 +46,7 @@ CREATE TABLE `django_content_type` (
   `model` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `app_label` (`app_label`,`model`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 
 #
 # Structure for the `auth_permission` table : 
@@ -63,7 +63,7 @@ CREATE TABLE `auth_permission` (
   UNIQUE KEY `content_type_id` (`content_type_id`,`codename`),
   KEY `auth_permission_37ef4eb4` (`content_type_id`),
   CONSTRAINT `content_type_id_refs_id_d043b34a` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8;
 
 #
 # Structure for the `auth_group_permissions` table : 
@@ -191,6 +191,18 @@ CREATE TABLE `django_site` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 #
+# Structure for the `menu_law` table : 
+#
+
+DROP TABLE IF EXISTS `menu_law`;
+
+CREATE TABLE `menu_law` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `fed` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+#
 # Structure for the `menu_item` table : 
 #
 
@@ -205,13 +217,50 @@ CREATE TABLE `menu_item` (
   `rght` int(10) unsigned NOT NULL,
   `tree_id` int(10) unsigned NOT NULL,
   `level` int(10) unsigned NOT NULL,
+  `law_id` int(11),
   PRIMARY KEY (`id`),
   KEY `menu_item_410d0aac` (`parent_id`),
   KEY `menu_item_329f6fb3` (`lft`),
   KEY `menu_item_e763210f` (`rght`),
   KEY `menu_item_ba470c4a` (`tree_id`),
   KEY `menu_item_20e079f4` (`level`),
+  KEY `menu_item_558fdbbd` (`law_id`),
+  CONSTRAINT `law_id_refs_id_f8c04fa8` FOREIGN KEY (`law_id`) REFERENCES `menu_law` (`id`),
   CONSTRAINT `parent_id_refs_id_58b84d3a` FOREIGN KEY (`parent_id`) REFERENCES `menu_item` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+#
+# Structure for the `site_user_staff` table : 
+#
+
+DROP TABLE IF EXISTS `site_user_staff`;
+
+CREATE TABLE `site_user_staff` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `surname` varchar(255) NOT NULL,
+  `patronymic` varchar(255) DEFAULT NULL,
+  `date_expire` date DEFAULT NULL,
+  `date` date DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+#
+# Structure for the `menu_law_staff` table : 
+#
+
+DROP TABLE IF EXISTS `menu_law_staff`;
+
+CREATE TABLE `menu_law_staff` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `law_id` int(11) NOT NULL,
+  `staff_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `menu_law_staff_law_id_6bf0a101_uniq` (`law_id`,`staff_id`),
+  KEY `menu_law_staff_558fdbbd` (`law_id`),
+  KEY `menu_law_staff_f0a7d083` (`staff_id`),
+  CONSTRAINT `staff_id_refs_id_03b5de0e` FOREIGN KEY (`staff_id`) REFERENCES `site_user_staff` (`id`),
+  CONSTRAINT `law_id_refs_id_52cc6d85` FOREIGN KEY (`law_id`) REFERENCES `menu_law` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 #
@@ -239,22 +288,6 @@ CREATE TABLE `site_user_duties` (
 ) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 
 #
-# Structure for the `site_user_staff` table : 
-#
-
-DROP TABLE IF EXISTS `site_user_staff`;
-
-CREATE TABLE `site_user_staff` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  `surname` varchar(255) NOT NULL,
-  `patronymic` varchar(255) DEFAULT NULL,
-  `date_expire` date DEFAULT NULL,
-  `date` date DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
-
-#
 # Structure for the `site_user_dateduties` table : 
 #
 
@@ -271,7 +304,7 @@ CREATE TABLE `site_user_dateduties` (
   KEY `site_user_dateduties_7185ea2d` (`duty_id`),
   CONSTRAINT `duty_id_refs_id_94f00652` FOREIGN KEY (`duty_id`) REFERENCES `site_user_duties` (`id`),
   CONSTRAINT `staff_id_refs_id_c455a768` FOREIGN KEY (`staff_id`) REFERENCES `site_user_staff` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 #
 # Structure for the `site_user_staff_user` table : 
@@ -303,7 +336,7 @@ CREATE TABLE `south_migrationhistory` (
   `migration` varchar(255) NOT NULL,
   `applied` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=4096;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=4096;
 
 #
 # Structure for the `task_status` table : 
@@ -316,7 +349,7 @@ CREATE TABLE `task_status` (
   `name` varchar(255) NOT NULL,
   `img` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 #
 # Structure for the `task_task` table : 
@@ -328,18 +361,19 @@ CREATE TABLE `task_task` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `parent_id` int(11) DEFAULT NULL,
   `name` varchar(255) NOT NULL,
-  `status_id` int(11) NOT NULL,
-  `checked_id` int(11) NOT NULL,
-  `date_start` date NOT NULL,
-  `date_end` date NOT NULL,
-  `date_checked` date NOT NULL,
-  `is_folder` smallint(6) NOT NULL,
-  `important` smallint(6) NOT NULL,
-  `main` smallint(6) NOT NULL,
+  `status_id` int(11),
+  `checked_id` int(11),
+  `date_start` date,
+  `date_end` date,
+  `date_checked` date,
+  `is_folder` smallint(6),
+  `important` smallint(6),
+  `main` smallint(6),
   `lft` int(10) unsigned NOT NULL,
   `rght` int(10) unsigned NOT NULL,
   `tree_id` int(10) unsigned NOT NULL,
   `level` int(10) unsigned NOT NULL,
+  `staff_id` int(11),
   PRIMARY KEY (`id`),
   KEY `task_task_410d0aac` (`parent_id`),
   KEY `task_task_48fb58bb` (`status_id`),
@@ -348,10 +382,12 @@ CREATE TABLE `task_task` (
   KEY `task_task_e763210f` (`rght`),
   KEY `task_task_ba470c4a` (`tree_id`),
   KEY `task_task_20e079f4` (`level`),
+  KEY `task_task_f0a7d083` (`staff_id`),
+  CONSTRAINT `checked_id_refs_id_a8e2a691` FOREIGN KEY (`checked_id`) REFERENCES `site_user_staff` (`id`),
   CONSTRAINT `parent_id_refs_id_93725a10` FOREIGN KEY (`parent_id`) REFERENCES `task_task` (`id`),
-  CONSTRAINT `status_id_refs_id_9054d0b1` FOREIGN KEY (`status_id`) REFERENCES `task_status` (`id`),
-  CONSTRAINT `checked_id_refs_id_a8e2a691` FOREIGN KEY (`checked_id`) REFERENCES `site_user_staff` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  CONSTRAINT `staff_id_refs_id_a8e2a691` FOREIGN KEY (`staff_id`) REFERENCES `site_user_staff` (`id`),
+  CONSTRAINT `status_id_refs_id_9054d0b1` FOREIGN KEY (`status_id`) REFERENCES `task_status` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 #
 # Structure for the `task_task_responsible` table : 
@@ -369,6 +405,18 @@ CREATE TABLE `task_task_responsible` (
   KEY `task_task_responsible_3e381e78` (`duties_id`),
   CONSTRAINT `task_id_refs_id_bb86cd0d` FOREIGN KEY (`task_id`) REFERENCES `task_task` (`id`),
   CONSTRAINT `duties_id_refs_id_aacd71e5` FOREIGN KEY (`duties_id`) REFERENCES `site_user_duties` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+#
+# Structure for the `thumbnail_kvstore` table : 
+#
+
+DROP TABLE IF EXISTS `thumbnail_kvstore`;
+
+CREATE TABLE `thumbnail_kvstore` (
+  `key` varchar(200) NOT NULL,
+  `value` longtext NOT NULL,
+  PRIMARY KEY (`key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 #
@@ -401,7 +449,9 @@ INSERT INTO `django_content_type` (`id`, `name`, `app_label`, `model`) VALUES
   (15,'staff','site_user','staff'),
   (16,'date duties','site_user','dateduties'),
   (17,'status','task','status'),
-  (20,'task','task','task');
+  (20,'task','task','task'),
+  (21,'law','menu','law'),
+  (22,'kv store','thumbnail','kvstore');
 COMMIT;
 
 #
@@ -459,7 +509,13 @@ INSERT INTO `auth_permission` (`id`, `name`, `content_type_id`, `codename`) VALU
   (51,'Can delete status',17,'delete_status'),
   (58,'Can add task',20,'add_task'),
   (59,'Can change task',20,'change_task'),
-  (60,'Can delete task',20,'delete_task');
+  (60,'Can delete task',20,'delete_task'),
+  (61,'Can add law',21,'add_law'),
+  (62,'Can change law',21,'change_law'),
+  (63,'Can delete law',21,'delete_law'),
+  (64,'Can add kv store',22,'add_kvstore'),
+  (65,'Can change kv store',22,'change_kvstore'),
+  (66,'Can delete kv store',22,'delete_kvstore');
 COMMIT;
 
 #
@@ -542,7 +598,39 @@ COMMIT;
 #
 
 INSERT INTO `django_site` (`id`, `domain`, `name`) VALUES 
-  (1,'example.com','example.com');
+  (1,'http://127.0.0.1:8001','http://127.0.0.1:8001');
+COMMIT;
+
+#
+# Data for the `menu_law` table  (LIMIT 0,500)
+#
+
+INSERT INTO `menu_law` (`id`, `fed`) VALUES 
+  (1,'super_user'),
+  (2,'task'),
+  (3,'');
+COMMIT;
+
+#
+# Data for the `menu_item` table  (LIMIT 0,500)
+#
+
+INSERT INTO `menu_item` (`id`, `parent_id`, `name`, `url`, `lft`, `rght`, `tree_id`, `level`, `law_id`) VALUES 
+  (1,NULL,'Главная','/',1,10,1,0,2),
+  (2,1,'Админка','/admin/',2,7,1,1,3),
+  (3,2,'Меню','/admin/menu/',3,4,1,2,1),
+  (4,2,'Пользователи','/admin/user/',5,6,1,2,1),
+  (5,1,'Задачи','/task/',8,9,1,1,2);
+COMMIT;
+
+#
+# Data for the `site_user_staff` table  (LIMIT 0,500)
+#
+
+INSERT INTO `site_user_staff` (`id`, `name`, `surname`, `patronymic`, `date_expire`, `date`) VALUES 
+  (1,'','Вакансия','',NULL,'2013-09-03'),
+  (2,'Алексей','Фирсов','Андреевич',NULL,'2013-09-03'),
+  (3,'Тествов','Тест','Тестовичь',NULL,'2013-09-03');
 COMMIT;
 
 #
@@ -576,13 +664,12 @@ INSERT INTO `site_user_duties` (`id`, `parent_id`, `name`, `date`, `lft`, `rght`
 COMMIT;
 
 #
-# Data for the `site_user_staff` table  (LIMIT 0,500)
+# Data for the `site_user_dateduties` table  (LIMIT 0,500)
 #
 
-INSERT INTO `site_user_staff` (`id`, `name`, `surname`, `patronymic`, `date_expire`, `date`) VALUES 
-  (1,'','Вакансия','',NULL,'2013-09-03'),
-  (2,'Алексей','Фирсов','Андреевич',NULL,'2013-09-03'),
-  (3,'Тествов','Тест','Тестовичь',NULL,'2013-09-03');
+INSERT INTO `site_user_dateduties` (`id`, `date`, `date_expire`, `staff_id`, `duty_id`) VALUES 
+  (1,'2013-08-01',NULL,2,5),
+  (2,'2013-08-05',NULL,2,16);
 COMMIT;
 
 #
@@ -604,7 +691,39 @@ INSERT INTO `south_migrationhistory` (`id`, `app_name`, `migration`, `applied`) 
   (1,'menu','0001_initial','2013-09-02 05:33:22'),
   (2,'site_user','0001_initial','2013-09-02 22:56:25'),
   (3,'site_user','0002_auto__add_field_dateduties_duty','2013-09-03 07:12:57'),
-  (4,'task','0001_initial','2013-09-04 14:55:43');
+  (4,'task','0001_initial','2013-09-04 14:55:43'),
+  (5,'mptt','0001_initial','2013-09-05 01:19:02'),
+  (6,'menu','0002_auto__add_law','2013-09-05 01:19:04'),
+  (7,'task','0002_auto__add_field_task_staff','2013-09-05 01:19:05'),
+  (8,'menu','0003_auto__del_field_law_item__add_field_item_law','2013-09-05 03:23:39'),
+  (9,'task','0003_auto__chg_field_task_status__chg_field_task_checked','2013-09-05 07:37:29'),
+  (10,'task','0004_auto__chg_field_task_date_end__chg_field_task_date_start__chg_field_ta','2013-09-05 07:40:14');
+COMMIT;
+
+#
+# Data for the `task_status` table  (LIMIT 0,500)
+#
+
+INSERT INTO `task_status` (`id`, `name`, `img`) VALUES 
+  (1,'новая задача','ico');
+COMMIT;
+
+#
+# Data for the `task_task` table  (LIMIT 0,500)
+#
+
+INSERT INTO `task_task` (`id`, `parent_id`, `name`, `status_id`, `checked_id`, `date_start`, `date_end`, `date_checked`, `is_folder`, `important`, `main`, `lft`, `rght`, `tree_id`, `level`, `staff_id`) VALUES 
+  (1,NULL,'123123123',1,NULL,'2013-08-13','2013-08-13',NULL,0,NULL,NULL,1,2,1,0,2);
+COMMIT;
+
+#
+# Data for the `thumbnail_kvstore` table  (LIMIT 0,500)
+#
+
+INSERT INTO `thumbnail_kvstore` (`key`, `value`) VALUES 
+  ('sorl-thumbnail||image||b6ef54f8b61e282469c1d51b708a576e','{\"storage\": \"django.core.files.storage.FileSystemStorage\", \"name\": \"cache/5d/4b/5d4b9eada631a2ada551eb1ed389a7fd.jpg\", \"size\": [45, 50]}'),
+  ('sorl-thumbnail||image||fcac27a2d64afc6e2c486b76ac70311c','{\"storage\": \"sorl.thumbnail.images.UrlStorage\", \"name\": \"http://127.0.0.1:8001/static/img/task.jpg\", \"size\": [170, 190]}'),
+  ('sorl-thumbnail||thumbnails||fcac27a2d64afc6e2c486b76ac70311c','[\"b6ef54f8b61e282469c1d51b708a576e\"]');
 COMMIT;
 
 
