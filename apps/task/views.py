@@ -9,7 +9,7 @@ import json
 
 
 @is_authenticated
-def add_edit_task(request):
+def add_edit_task(request, ret={}):
 
     param = request.GET.copy()
 
@@ -32,13 +32,73 @@ def add_edit_task(request):
         param['staff_id'] = user_obj.getStaffUserId(request.user.id).id
         param['status_id'] = 1
         param['percent'] = 0
+    elif param.has_key('status_id'):
+        ret = is_valid_task_edit(request, {
+            'task_id': int(param['id']),
+            'valid': 'status_not',
+            'status_id': param['status_id'],
+        })
+
+    if ret.has_key('error') and ret['error'] != u'':
+        return HttpResponse(json.dumps(ret))
 
     task = statics.task_obj.addEditTask(param)
+    if task:
+        ret['name'] = task.name
+        return HttpResponse(json.dumps(ret))
+
+    return HttpResponse(json.dumps({
+        'error': u'Нету такой задачи!'
+    }))
+
+
+@is_authenticated
+def is_valid_task_edit(request, data=None):
+
+    param = request.GET.copy() if not data else data.copy()
+
+    task = statics.task_obj.getTaskId(int(param['task_id']))
 
     if task:
-        return HttpResponse(task.name)
+        ret = {
+            'error': u'',
+        }
 
-    return HttpResponse(0)
+        if param['valid'] == 'status_edit':
+            ret['error'] = u'' if task.status_id == 1 else u'Задача утверждена, теперь ее нельзя редактировать!'
+        elif param['valid'] == 'status_not':
+            ret['error'] = u'Задача утверждена, нельзя сменить статус на "Новая задача"!' \
+                if task.status_id > 1 and int(param['status_id']) == 1 else u''
+        if data:
+            return ret
+        else:
+            return HttpResponse(json.dumps(ret))
+
+    return HttpResponse(json.dumps({
+        'error': u'Нету такой задачи!'
+    }))
+
+
+@is_authenticated
+def get_status_all(request):
+    statuses = statics.task_obj.getAllStatus()
+    data = []
+
+    if statuses:
+        ret = []
+        for status in statuses:
+            ret.append({
+                'name': status.name,
+                'class_alt': status.class_alt,
+                'class_icon': status.class_icon,
+                'id': status.id,
+            })
+
+        data = {
+            'statuses': ret
+        }
+
+    return HttpResponse(json.dumps(data))
 
 
 @is_authenticated
@@ -46,6 +106,22 @@ def task(request):
 
     if request.GET.has_key('action') and request.GET['action'] == 'add_edit_task':
         return add_edit_task(request)
+
+    if request.GET.has_key('action') and request.GET['action'] == 'get_status_all':
+        return get_status_all(request)
+
+    if request.GET.has_key('action') and request.GET['action'] == 'is_valid_task_edit':
+        return is_valid_task_edit(request)
+
+    if request.GET.has_key('action') and request.GET['action'] == 'add_edit_date':
+        date_start = date_sql(request.GET['date_start'])
+        date_end = date_sql(request.GET['date_end'])
+        error = {}
+        if date_start > date_end:
+            error = {
+                'error': u'Неверное заданны даты!'
+            }
+        return add_edit_task(request, error)
 
     if request.COOKIES.has_key('duty'):
         duty_id = int(request.COOKIES['duty'])

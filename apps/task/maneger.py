@@ -17,6 +17,9 @@ class ManagersTask():
     def getTasksDuty(self, duty_id):
         return Task.objects.filter(responsible__id=duty_id)
 
+    def getAllStatus(self):
+        return Status.objects.all()
+
     def addEditTask(self, param):
 
         if param.has_key('id'):

@@ -11,7 +11,8 @@ class Status(models.Model):
         Статусы задач
     """
     name = models.CharField(max_length=255)
-    img = models.CharField(max_length=255)
+    class_icon = models.CharField(max_length=255)
+    class_alt = models.CharField(max_length=255)
 
 
 class Task(models.Model):

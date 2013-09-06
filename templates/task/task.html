@@ -9,5 +9,44 @@
 
 
 {% block content %}
+    <div class="row-fluid thumbnails">
+    <div class="span1">
+        <a href="#"
+           data-placement='bottom'
+           data-original-title='Добавить задачу'
+           id="add_task"
+           class="thumbnail tooltips"><img style="height: 50px" src="/static/img/task.jpg" /></a>
+    </div>
+    <div class="span1">
+        <a href="#"
+           data-placement='bottom'
+           data-original-title='Добавить папку'
+           class="thumbnail tooltips"><img style="height: 50px" src="/static/img/folder.jpg" /></a>
+    </div>
+    <div class="span1">
+        <a href="#"
+           data-placement='bottom'
+           data-original-title='Удалить задачу или папку'
+           class="thumbnail tooltips"><img style="height: 50px" src="/static/img/delete.png" /></a>
+    </div>
+    <div class="span1">
+        <a href="#"
+           data-placement='bottom'
+           data-original-title='Распечатать'
+           class="thumbnail tooltips"><img style="height: 50px" src="/static/img/print.png" /></a>
+    </div>
+    <div class="span1" style="padding-top: 5px;">
+        <a href="#" class="btn btn-warning">Задача совета</a>
+    </div>
+    <div class="span3" style="padding-top: 14px;">
+        <div class="input-append">
+            <input name="date" value="{% include 'site/date.html' %}" type="text" class="date_picer span10" />
+            <span class="add-on date_picer_icon"><i class="icon-calendar"></i></span>
+        </div>
+    </div>
+</div>
+
+<br />
+<br />
     {% include 'task/task_node.html' %}
 {% endblock %}

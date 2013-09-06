@@ -20,3 +20,10 @@ function date_sql(date){
     date_str += ((date.getDate()<10)?("0"):(""))+date.getDate();
     return date_str
 }
+
+function date_rus_obj(date_str) {
+    date_str = explode('.', date_str);
+
+    var date = new Date(to_int(date_str[2]), to_int(date_str[1]), to_int(date_str[0]), 0, 0, 0, 0);
+    return date;
+}

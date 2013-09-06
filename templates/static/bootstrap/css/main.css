@@ -85,3 +85,12 @@ ul.list li, ol.list li {
 .notifications {
     z-index: 99999999;
 }
+
+.task_dep .percent_task,
+.task_dep .percent_task,
+.task_dep .name_tasc,
+.task_dep .responsible_task,
+.task_dep .date_task {
+    text-decoration: line-through !important;
+    color: #999 !important;
+}
